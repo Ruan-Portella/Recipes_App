@@ -6,7 +6,6 @@ import App from '../App';
 
 describe('Teste tela de Login', () => {
   test('testando se os inputs de Email, senha e botão estão na tela', () => {
-    // Este arquivo pode ser modificado ou deletado sem problemas
     renderWithRouter(<App />);
     const inputEmail = screen.getByTestId('email-input');
     expect(inputEmail).toBeInTheDocument();
@@ -17,7 +16,6 @@ describe('Teste tela de Login', () => {
     expect(btn).toBeDisabled();
   });
   test('testando se os inputs de Email, senha e botão estão interativos', () => {
-    // Este arquivo pode ser modificado ou deletado sem problemas
     renderWithRouter(<App />);
     const inputEmail = screen.getByTestId('email-input');
     userEvent.type(inputEmail, 'test@test.com');

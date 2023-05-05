@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { saveEmail } from '../helpers/localStorage';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isDisable, setIsDisable] = useState(true)
+  const [isDisable, setIsDisable] = useState(true);
+  // const { history } = useHistory();
 
   useEffect(() => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    const minCaracter = 6
-    const btnValidation = emailRegex.test(email) && password.length > minCaracter
-    setIsDisable(!btnValidation)
-  },[email , password])
+    const minCaracter = 6;
+    const btnValidation = emailRegex.test(email) && password.length > minCaracter;
+    setIsDisable(!btnValidation);
+  }, [email, password]);
+
+  const handleClick = () => {
+    saveEmail({ email });
+    // history.push('/');
+  };
 
   return (
-    <div>
+    <form>
       <label htmlFor="email">
         Email
         <input
@@ -36,10 +44,14 @@ export default function Login() {
           value={ password }
         />
       </label>
-      <button 
-      data-testid="login-submit-btn"
-      disabled={ isDisable }
-      >Enter</button>
-    </div>
+      <button
+        type="button"
+        data-testid="login-submit-btn"
+        disabled={ isDisable }
+        onClick={ () => handleClick() }
+      >
+        Enter
+      </button>
+    </form>
   );
 }
