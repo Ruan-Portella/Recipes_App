@@ -30,4 +30,17 @@ describe('Teste o Componente Header', () => {
     userEvent.click(btnProfile);
     expect(iconSearch).not.toBeInTheDocument();
   });
+  test('Verifica se o icone de pesquisa aparece na tela meals', async () => {
+    renderWithRouter(<App />);
+    const inputEmail = screen.getByTestId('email-input');
+    userEvent.type(inputEmail, 'test@test.com');
+    const inputPassWord = screen.getByTestId('password-input');
+    userEvent.type(inputPassWord, '1234567');
+    const btn = screen.getByTestId('login-submit-btn');
+    userEvent.click(btn);
+    const btnSearch = screen.getByTestId('search-btn');
+    userEvent.click(btnSearch);
+    const searchInput = screen.getByTestId('search-input');
+    expect(searchInput).toBeInTheDocument();
+  });
 });
