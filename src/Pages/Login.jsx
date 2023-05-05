@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isDisable, setIsDisable] = useState(true)
+
+  useEffect(() => {
+    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const minCaracter = 6
+    const btnValidation = emailRegex.test(email) && password.length > minCaracter
+    setIsDisable(!btnValidation)
+  },[email , password])
 
   return (
     <div>
@@ -28,7 +36,10 @@ export default function Login() {
           value={ password }
         />
       </label>
-      <button data-testid="login-submit-btn">Enter</button>
+      <button 
+      data-testid="login-submit-btn"
+      disabled={ isDisable }
+      >Enter</button>
     </div>
   );
 }
