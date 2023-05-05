@@ -15,13 +15,16 @@ describe('Teste tela de Login', () => {
     expect(btn).toBeInTheDocument();
     expect(btn).toBeDisabled();
   });
-  test('testando se os inputs de Email, senha e botão estão interativos', () => {
-    renderWithRouter(<App />);
+  test('testando se os inputs de Email, senha e botão estão interativos', async () => {
+    const { history } = renderWithRouter(<App />);
     const inputEmail = screen.getByTestId('email-input');
     userEvent.type(inputEmail, 'test@test.com');
     const inputPassWord = screen.getByTestId('password-input');
     userEvent.type(inputPassWord, '1234567');
     const btn = screen.getByTestId('login-submit-btn');
     expect(btn).not.toBeDisabled();
+    userEvent.click(btn);
+    const { pathname } = history.location;
+    expect(pathname).toBe('/meals');
   });
 });

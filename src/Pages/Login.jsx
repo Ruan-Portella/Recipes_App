@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 import { saveEmail } from '../helpers/localStorage';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisable, setIsDisable] = useState(true);
-  // const { history } = useHistory();
+  const history = useHistory();
 
   useEffect(() => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -17,7 +17,7 @@ export default function Login() {
 
   const handleClick = () => {
     saveEmail({ email });
-    // history.push('/');
+    history.push('/meals');
   };
 
   return (
