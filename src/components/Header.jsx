@@ -2,6 +2,7 @@ import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import SearchBar from './SearchBar';
 
 function Header({ title, icons }) {
   const [isEnable, setIsEnable] = useState(false);
@@ -23,7 +24,7 @@ function Header({ title, icons }) {
         <i data-testid="profile-top-btn" src="profileIcon"><AiOutlineUser /></i>
       </Link>
       <h1 data-testid="page-title">{ title }</h1>
-      {isEnable && <input data-testid="search-input" />}
+      {isEnable && <SearchBar />}
     </header>
   );
 }
