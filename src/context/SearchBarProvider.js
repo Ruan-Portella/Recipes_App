@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import SearchBarContext from './SearchBarContext';
@@ -9,8 +9,15 @@ function SearchBarProvider({ children }) {
   const fetchApi = useCallback(async (url) => {
     const response = await fetch(url);
     const dataApi = await response.json();
+    if (Object.keys(dataApi).length === 1) {
+      let id = 'idDrink';
+      if (pathname === '/meals') {
+        id = 'idMeal';
+      }
+      window.location.href = `${pathname}/${(dataApi[Object.keys(dataApi)])[0][id]}`;
+    }
     return dataApi;
-  }, []);
+  }, [pathname]);
 
   const searchBtn = useCallback((inputValue, radioValue) => {
     let URL = 'thecocktaildb';
