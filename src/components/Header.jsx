@@ -7,7 +7,7 @@ function Header({ title, icons }) {
   const [isEnable, setIsEnable] = useState(false);
   return (
     <header>
-      {icons ? (
+      {icons && (
         <i
           data-testid="search-top-btn"
           src="searchIcon"
@@ -18,9 +18,7 @@ function Header({ title, icons }) {
           >
             <AiOutlineSearch />
           </button>
-
-        </i>
-      ) : null}
+        </i>)}
       <Link to="/profile">
         <i data-testid="profile-top-btn" src="profileIcon"><AiOutlineUser /></i>
       </Link>
