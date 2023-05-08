@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import { useCallback, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import SearchBarContext from './SearchBarContext';
 
 function SearchBarProvider({ children }) {
+  const { pathname } = useLocation();
+
   const fetchApi = useCallback(async (url) => {
     const response = await fetch(url);
     const dataApi = await response.json();
@@ -10,23 +13,29 @@ function SearchBarProvider({ children }) {
   }, []);
 
   const searchBtn = useCallback((inputValue, radioValue) => {
+    let URL = 'thecocktaildb';
+    if (pathname === '/meals') {
+      URL = 'themealdb';
+    }
+
     switch (radioValue) {
     case 'Ingredient':
-      fetchApi(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue}`);
+
+      fetchApi(`https://www.${URL}.com/api/json/v1/1/filter.php?i=${inputValue}`);
       break;
 
     case 'Name':
-      fetchApi(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`);
+      fetchApi(`https://www.${URL}.com/api/json/v1/1/search.php?s=${inputValue}`);
       break;
 
     default:
       if (inputValue.length > 1) {
         global.alert('Your search must have only 1 (one) character');
       }
-      fetchApi(`https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`);
+      fetchApi(`https://www.${URL}.com/api/json/v1/1/search.php?f=${inputValue}`);
       break;
     }
-  }, [fetchApi]);
+  }, [fetchApi, pathname]);
 
   const values = useMemo(() => ({
     searchBtn,
