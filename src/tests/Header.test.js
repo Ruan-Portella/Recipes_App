@@ -4,10 +4,11 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import Meals from '../pages/Meals';
+import SearchBarProvider from '../context/SearchBarProvider';
 
 describe('Teste o Componente Header', () => {
   test('Verifica se o icone de pesquisa aparece na tela meals', async () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<SearchBarProvider><App /></SearchBarProvider>);
     const inputEmail = screen.getByTestId('email-input');
     userEvent.type(inputEmail, 'test@test.com');
     const inputPassWord = screen.getByTestId('password-input');
@@ -19,7 +20,7 @@ describe('Teste o Componente Header', () => {
   });
 
   test('Verifica se o icone de pesquisa aparece não aparece tela profile', async () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<SearchBarProvider><App /></SearchBarProvider>);
     const inputEmail = screen.getByTestId('email-input');
     userEvent.type(inputEmail, 'test@test.com');
     const inputPassWord = screen.getByTestId('password-input');
@@ -32,7 +33,7 @@ describe('Teste o Componente Header', () => {
     expect(iconSearch).not.toBeInTheDocument();
   });
   test('Verifica se a barra pesquisa aparece na tela meals após o clique', async () => {
-    renderWithRouter(<Meals />);
+    renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
     // const inputEmail = screen.getByTestId('email-input');
     // userEvent.type(inputEmail, 'test@test.com');
     // const inputPassWord = screen.getByTestId('password-input');

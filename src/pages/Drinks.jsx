@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import CardRecipe from '../components/CardRecipe';
+import Recipes from '../components/Recipes';
 import SearchBarContext from '../context/SearchBarContext';
 
 function Drinks() {
@@ -12,7 +12,7 @@ function Drinks() {
       <Header title="Drinks" icons />
       <ul>
         {recipesData.map((recipe, index) => (
-          <CardRecipe
+          <Recipes
             key={ recipe.strDrink }
             name={ recipe.strDrink }
             img={ recipe.strDrinkThumb }
