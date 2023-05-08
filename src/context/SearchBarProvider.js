@@ -6,7 +6,9 @@ import SearchBarContext from './SearchBarContext';
 function SearchBarProvider({ children }) {
   const { pathname } = useLocation();
   const [recipesData, setRecipesData] = useState([]);
+  const [categoriesData, setCategoriesData] = useState([]);
   const limitSearch = 12;
+  const limitCategory = 5;
 
   const fetchApi = useCallback(async (url) => {
     const response = await fetch(url);
@@ -24,13 +26,23 @@ function SearchBarProvider({ children }) {
     }
   }, [pathname]);
 
+  const fetchCategory = useCallback(async (url) => {
+    const response = await fetch(url);
+    const dataCategory = await response.json();
+    return setCategoriesData(
+      (dataCategory[Object.keys(dataCategory)]).slice(0, limitCategory),
+    );
+  }, []);
+
   useEffect(() => {
     if (pathname === '/meals') {
+      fetchCategory('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
       fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     } else {
+      fetchCategory('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
       fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     }
-  }, [fetchApi, pathname]);
+  }, [fetchApi, fetchCategory, pathname]);
 
   const searchBtn = useCallback((inputValue, radioValue) => {
     let URL = 'thecocktaildb';
@@ -60,7 +72,8 @@ function SearchBarProvider({ children }) {
   const values = useMemo(() => ({
     searchBtn,
     recipesData,
-  }), [searchBtn, recipesData]);
+    categoriesData,
+  }), [searchBtn, recipesData, categoriesData]);
   return (
     <SearchBarContext.Provider value={ values }>
       {children}
