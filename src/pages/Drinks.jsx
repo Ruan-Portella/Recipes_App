@@ -6,7 +6,7 @@ import SearchBarContext from '../context/SearchBarContext';
 import ButtonCategorie from '../components/ButtonCategorie';
 
 function Drinks() {
-  const { recipesData, categoriesData } = useContext(SearchBarContext);
+  const { recipesData, categoriesData, searchBtn } = useContext(SearchBarContext);
 
   return (
     <>
@@ -17,6 +17,12 @@ function Drinks() {
             <ButtonCategorie key={ index } name={ category.strCategory } />
           ))
         }
+        <button
+          data-testid="All-category-filter"
+          onClick={ () => searchBtn('', 'Name') }
+        >
+          All
+        </button>
       </section>
       <ul>
         {recipesData.map((recipe, index) => (
