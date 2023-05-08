@@ -1,22 +1,25 @@
-import PropTypes, { object } from 'prop-types';
-import { useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useCallback, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import SearchBarContext from './SearchBarContext';
 
 function SearchBarProvider({ children }) {
   const { pathname } = useLocation();
+  const [recipesData, setRecipesData] = useState([]);
+  const limitSearch = 12;
 
   const fetchApi = useCallback(async (url) => {
     const response = await fetch(url);
     const dataApi = await response.json();
-    if (Object.keys(dataApi).length === 1) {
+    if (dataApi[Object.keys(dataApi)].length <= 1) {
       let id = 'idDrink';
       if (pathname === '/meals') {
         id = 'idMeal';
       }
       window.location.href = `${pathname}/${(dataApi[Object.keys(dataApi)])[0][id]}`;
     }
-    return dataApi;
+    console.log((dataApi[Object.keys(dataApi)]).slice(0, limitSearch));
+    return setRecipesData((dataApi[Object.keys(dataApi)]).slice(0, limitSearch));
   }, [pathname]);
 
   const searchBtn = useCallback((inputValue, radioValue) => {
@@ -46,7 +49,8 @@ function SearchBarProvider({ children }) {
 
   const values = useMemo(() => ({
     searchBtn,
-  }), [searchBtn]);
+    recipesData,
+  }), [searchBtn, recipesData]);
   return (
     <SearchBarContext.Provider value={ values }>
       {children}
