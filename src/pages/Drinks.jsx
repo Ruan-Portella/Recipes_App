@@ -28,6 +28,8 @@ function Drinks() {
         {recipesData.map((recipe, index) => (
           <Recipes
             key={ recipe.strDrink }
+            path="/drinks/"
+            id={ recipe.idDrink }
             name={ recipe.strDrink }
             img={ recipe.strDrinkThumb }
             index={ index }
