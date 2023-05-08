@@ -29,6 +29,8 @@ function Meals() {
         {recipesData.map((recipe, index) => (
           <Recipes
             key={ recipe.strMeal }
+            path="/meals/"
+            id={ recipe.idMeal }
             name={ recipe.strMeal }
             img={ recipe.strMealThumb }
             index={ index }

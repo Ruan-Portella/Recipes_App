@@ -15,9 +15,10 @@ beforeEach(() => {
 });
 
 describe('', () => {
+  const SEARCH = 'search-btn';
   test('', async () => {
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
-    const btnSearch = screen.getByTestId('search-btn');
+    const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
     const InputValue = screen.getByTestId('search-input');
     userEvent.type(InputValue, 'soup');
@@ -33,7 +34,7 @@ describe('', () => {
 
   test('', async () => {
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
-    const btnSearch = screen.getByTestId('search-btn');
+    const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
     const IngredientInput = screen.getByTestId('ingredient-search-radio');
     userEvent.click(IngredientInput);
@@ -41,7 +42,7 @@ describe('', () => {
 
   test('', async () => {
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
-    const btnSearch = screen.getByTestId('search-btn');
+    const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
     const FirstLetterInput = screen.getByTestId('first-letter-search-radio');
     userEvent.click(FirstLetterInput);
