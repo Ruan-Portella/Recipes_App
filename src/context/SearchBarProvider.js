@@ -11,15 +11,17 @@ function SearchBarProvider({ children }) {
   const fetchApi = useCallback(async (url) => {
     const response = await fetch(url);
     const dataApi = await response.json();
-    if (dataApi[Object.keys(dataApi)].length <= 1) {
+    if (!dataApi[Object.keys(dataApi)]) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else if (dataApi[Object.keys(dataApi)].length <= 1) {
       let id = 'idDrink';
       if (pathname === '/meals') {
         id = 'idMeal';
       }
       window.location.href = `${pathname}/${(dataApi[Object.keys(dataApi)])[0][id]}`;
+    } else {
+      return setRecipesData((dataApi[Object.keys(dataApi)]).slice(0, limitSearch));
     }
-    console.log((dataApi[Object.keys(dataApi)]).slice(0, limitSearch));
-    return setRecipesData((dataApi[Object.keys(dataApi)]).slice(0, limitSearch));
   }, [pathname]);
 
   const searchBtn = useCallback((inputValue, radioValue) => {
