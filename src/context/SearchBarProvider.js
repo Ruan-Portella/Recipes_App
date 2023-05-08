@@ -34,6 +34,18 @@ function SearchBarProvider({ children }) {
     );
   }, []);
 
+  const fetchByCategory = useCallback(async (category) => {
+    let URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+    if (pathname === '/drinks') {
+      URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+    }
+    const response = await fetch(URL);
+    const dataCategory = await response.json();
+    return setRecipesData(
+      (dataCategory[Object.keys(dataCategory)]).slice(0, limitSearch),
+    );
+  }, [pathname]);
+
   useEffect(() => {
     if (pathname === '/meals') {
       fetchCategory('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
@@ -73,7 +85,8 @@ function SearchBarProvider({ children }) {
     searchBtn,
     recipesData,
     categoriesData,
-  }), [searchBtn, recipesData, categoriesData]);
+    fetchByCategory,
+  }), [searchBtn, recipesData, categoriesData, fetchByCategory]);
   return (
     <SearchBarContext.Provider value={ values }>
       {children}
