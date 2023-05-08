@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import SearchBarContext from './SearchBarContext';
 
@@ -23,6 +23,14 @@ function SearchBarProvider({ children }) {
       return setRecipesData((dataApi[Object.keys(dataApi)]).slice(0, limitSearch));
     }
   }, [pathname]);
+
+  useEffect(() => {
+    if (pathname === '/meals') {
+      fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    } else {
+      fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    }
+  }, [fetchApi, pathname]);
 
   const searchBtn = useCallback((inputValue, radioValue) => {
     let URL = 'thecocktaildb';
