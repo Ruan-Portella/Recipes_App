@@ -26,7 +26,10 @@ function RecipeDetailsProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    if (pathname.includes('/meals')) {
+    console.log('entrou');
+    if (pathname.includes('in-progress')) {
+      return () => {};
+    } if (pathname.includes('/meals')) {
       fetchDetails(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idRecipe}`);
       fetchRecommend('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     } else {

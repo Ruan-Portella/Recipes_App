@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom';
 import RecipeDetailsContext from '../context/RecipeDetailsContext';
 import '../styles/RecipeDetails.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 function RecipeDetails() {
-  const { recipeDetails, pathname, recipeRecommend } = useContext(RecipeDetailsContext);
+  const { recipeDetails, pathname,
+    recipeRecommend } = useContext(RecipeDetailsContext);
   const [alcoholic, setAlcoholic] = useState(false);
   const limitIngredients = 20;
   let ingredients = [];
@@ -50,6 +52,8 @@ function RecipeDetails() {
           src={ recipeDetails[`str${name}Thumb`] }
           alt="Recipe"
         />
+        <button data-testid="share-btn">Compartilhar</button>
+        <button data-testid="favorite-btn">Favoritar</button>
         <h1 data-testid="recipe-title">{recipeDetails[`str${name}`]}</h1>
         <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
         {
@@ -98,12 +102,14 @@ function RecipeDetails() {
           )
         }
       </section>
-      <button
-        className="btn-start-recipe"
-        data-testid="start-recipe-btn"
-      >
-        Start Recipe
-      </button>
+      <Link to={ `${pathname}/in-progress` }>
+        <button
+          className="btn-start-recipe"
+          data-testid="start-recipe-btn"
+        >
+          Start Recipe
+        </button>
+      </Link>
     </>
   );
 }
