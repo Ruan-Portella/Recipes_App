@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import RecipeDetailsContext from "../context/RecipeDetailsContext";
+import { useContext } from 'react';
+import RecipeDetailsContext from '../context/RecipeDetailsContext';
 
 function RecipeDetails() {
-  const { recipeDetails } = useContext(RecipeDetailsContext)
+  const { recipeDetails } = useContext(RecipeDetailsContext);
   console.log(recipeDetails);
   return (
     <>Hello</>

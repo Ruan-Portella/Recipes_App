@@ -5,8 +5,8 @@ import RecipeDetailsContext from './RecipeDetailsContext';
 
 function RecipeDetailsProvider({ children }) {
   const { pathname } = useLocation();
-  const idRecipe = parseInt(pathname.split('/').pop());
   const [recipeDetails, setRecipeDetails] = useState();
+  const idRecipe = parseInt(pathname.split('/').pop(), 10);
 
   const fetchDetails = useCallback(async (url) => {
     const response = await fetch(url);
@@ -20,11 +20,11 @@ function RecipeDetailsProvider({ children }) {
     } else {
       fetchDetails(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idRecipe}`);
     }
-  }, [fetchDetails, pathname]);
+  }, [fetchDetails, idRecipe, pathname]);
 
-const values = useMemo(() => {
-  recipeDetails
-}, [recipeDetails])
+  const values = useMemo(() => ({
+    recipeDetails,
+  }), [recipeDetails]);
 
   return (
     <RecipeDetailsContext.Provider value={ values }>
@@ -32,5 +32,9 @@ const values = useMemo(() => {
     </RecipeDetailsContext.Provider>
   );
 }
+
+RecipeDetailsProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default RecipeDetailsProvider;
