@@ -6,12 +6,14 @@ import RecipeDetailsContext from './RecipeDetailsContext';
 function RecipeDetailsProvider({ children }) {
   const { pathname } = useLocation();
   const [recipeDetails, setRecipeDetails] = useState([]);
+  const [recipeRecommend, setRecipeRecommend] = useState([]);
   const idRecipe = parseInt(pathname.split('/').pop(), 10);
 
   const fetchRecommend = useCallback(async (url) => {
-    const response = await fetch(url);
-    const dataRecommend = await response.json();
-    return dataRecommend;
+    const responseDetails = await fetch(url);
+    const dataRecommend = await responseDetails.json();
+    return (
+      setRecipeRecommend((dataRecommend[Object.keys(dataRecommend)]).slice(0, 6)));
   }, []);
 
   const fetchDetails = useCallback(async (url) => {
@@ -33,7 +35,8 @@ function RecipeDetailsProvider({ children }) {
   const values = useMemo(() => ({
     recipeDetails,
     pathname,
-  }), [recipeDetails, pathname]);
+    recipeRecommend,
+  }), [recipeDetails, pathname, recipeRecommend]);
 
   return (
     <RecipeDetailsContext.Provider value={ values }>
