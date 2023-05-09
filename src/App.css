@@ -3,3 +3,9 @@ footer {
   display: flex;
   position: fixed;
 }
+
+.btn-start-recipe {
+  bottom: 0;
+  display: flex;
+  position: fixed;
+}
