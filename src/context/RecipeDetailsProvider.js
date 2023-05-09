@@ -8,12 +8,15 @@ function RecipeDetailsProvider({ children }) {
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [recipeRecommend, setRecipeRecommend] = useState([]);
   const idRecipe = parseInt(pathname.split('/').pop(), 10);
+  const limitDataRecomend = 6;
 
   const fetchRecommend = useCallback(async (url) => {
     const responseDetails = await fetch(url);
     const dataRecommend = await responseDetails.json();
     return (
-      setRecipeRecommend((dataRecommend[Object.keys(dataRecommend)]).slice(0, 6)));
+      setRecipeRecommend(
+        (dataRecommend[Object.keys(dataRecommend)]).slice(0, limitDataRecomend),
+      ));
   }, []);
 
   const fetchDetails = useCallback(async (url) => {

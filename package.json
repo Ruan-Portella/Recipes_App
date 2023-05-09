@@ -57,6 +57,7 @@
     "mochawesome": "^7.1.3",
     "mochawesome-merge": "^4.2.2",
     "mochawesome-report-generator": "^6.2.0",
+    "polyfill": "^0.1.0",
     "stylelint": "^14.16.1",
     "stylelint-order": "^5.0.0"
   },

@@ -43,60 +43,68 @@ function RecipeDetails() {
   }
 
   return (
-    <section>
-      <img
-        data-testid="recipe-photo"
-        src={ recipeDetails[`str${name}Thumb`] }
-        alt="Recipe"
-      />
-      <h1 data-testid="recipe-title">{recipeDetails[`str${name}`]}</h1>
-      <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
-      {
-        alcoholic && <p data-testid="recipe-category">{recipeDetails.strAlcoholic}</p>
-      }
-      <ul>
-        {
-          ingredients.map((ingredient, index) => (
-            <li
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              key={ ingredient.ingredient }
-            >
-              <span>{ingredient.ingredient}</span>
-              <span>{ingredient.measure}</span>
-            </li>
-          ))
-        }
-      </ul>
-      <span data-testid="instructions">{recipeDetails.strInstructions}</span>
-      {
-        !alcoholic && <iframe
-          data-testid="video"
-          width="420"
-          height="315"
-          src={ `${recipeDetails.strYoutube}` }
-          title="video"
+    <>
+      <section>
+        <img
+          data-testid="recipe-photo"
+          src={ recipeDetails[`str${name}Thumb`] }
+          alt="Recipe"
         />
-      }
-      {
-        recipeRecommend.length > 0 && (
-          <Slider { ...settings }>
-            {recipeRecommend.map((recommmend, index) => (
-              <div
-                key={ recommmend.strSource }
-                data-testid={ `${index}-recommendation-card` }
+        <h1 data-testid="recipe-title">{recipeDetails[`str${name}`]}</h1>
+        <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
+        {
+          alcoholic && <p data-testid="recipe-category">{recipeDetails.strAlcoholic}</p>
+        }
+        <ul>
+          {
+            ingredients.map((ingredient, index) => (
+              <li
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                key={ ingredient.ingredient }
               >
-                <img src={ recommmend[`str${recommendName}Thumb`] } alt="ThumbNail" />
-                <span
-                  data-testid={ `${index}-recommendation-title` }
+                <span>{ingredient.ingredient}</span>
+                <span>{ingredient.measure}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <span data-testid="instructions">{recipeDetails.strInstructions}</span>
+        {
+          !alcoholic && <iframe
+            data-testid="video"
+            width="420"
+            height="315"
+            src={ `${recipeDetails.strYoutube}` }
+            title="video"
+          />
+        }
+        {
+          recipeRecommend.length > 0 && (
+            <Slider { ...settings }>
+              {recipeRecommend.map((recommmend, index) => (
+                <div
+                  key={ recommmend.strSource }
+                  data-testid={ `${index}-recommendation-card` }
                 >
-                  {recommmend[`str${recommendName}`]}
-                </span>
-              </div>
-            ))}
-          </Slider>
-        )
-      }
-    </section>
+                  <img src={ recommmend[`str${recommendName}Thumb`] } alt="ThumbNail" />
+                  <span
+                    data-testid={ `${index}-recommendation-title` }
+                  >
+                    {recommmend[`str${recommendName}`]}
+                  </span>
+                </div>
+              ))}
+            </Slider>
+          )
+        }
+      </section>
+      <button
+        className="btn-start-recipe"
+        data-testid="start-recipe-btn"
+      >
+        Start Recipe
+      </button>
+    </>
   );
 }
 
