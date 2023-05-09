@@ -22,7 +22,7 @@ function RecipeDetailsProvider({ children }) {
     }
   }, [fetchDetails, pathname]);
 
-const values = useMemo(() => ({
+const values = useMemo(() => {
   recipeDetails
 }, [recipeDetails])
 
