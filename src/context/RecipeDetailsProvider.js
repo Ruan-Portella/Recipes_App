@@ -5,13 +5,13 @@ import RecipeDetailsContext from './RecipeDetailsContext';
 
 function RecipeDetailsProvider({ children }) {
   const { pathname } = useLocation();
-  const [recipeDetails, setRecipeDetails] = useState();
+  const [recipeDetails, setRecipeDetails] = useState([]);
   const idRecipe = parseInt(pathname.split('/').pop(), 10);
 
   const fetchDetails = useCallback(async (url) => {
     const response = await fetch(url);
     const dataDetails = await response.json();
-    return setRecipeDetails(dataDetails);
+    return setRecipeDetails(dataDetails[Object.keys(dataDetails)][0]);
   }, []);
 
   useEffect(() => {
@@ -24,7 +24,8 @@ function RecipeDetailsProvider({ children }) {
 
   const values = useMemo(() => ({
     recipeDetails,
-  }), [recipeDetails]);
+    pathname,
+  }), [recipeDetails, pathname]);
 
   return (
     <RecipeDetailsContext.Provider value={ values }>
