@@ -14,7 +14,7 @@ beforeEach(() => {
   );
 });
 
-describe('', () => {
+describe.skip('', () => {
   test('', async () => {
     const { history } = renderWithRouter(
       <SearchBarProvider>

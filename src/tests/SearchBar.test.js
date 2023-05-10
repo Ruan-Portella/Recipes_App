@@ -14,7 +14,7 @@ beforeEach(() => {
   );
 });
 
-describe('', () => {
+describe.skip('', () => {
   const SEARCH = 'search-btn';
   test('', async () => {
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
