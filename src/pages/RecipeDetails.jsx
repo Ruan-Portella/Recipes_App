@@ -74,11 +74,12 @@ function RecipeDetails() {
         </ul>
         <span data-testid="instructions">{recipeDetails.strInstructions}</span>
         {
+
           !alcoholic && <iframe
             data-testid="video"
             width="420"
             height="315"
-            src={ `${recipeDetails.strYoutube}` }
+            src={ `https://www.youtube.com/embed/${`${recipeDetails.strYoutube}`.split('v=')[1]}` }
             title="video"
           />
         }
@@ -87,7 +88,7 @@ function RecipeDetails() {
             <Slider { ...settings }>
               {recipeRecommend.map((recommmend, index) => (
                 <div
-                  key={ recommmend.strSource }
+                  key={ `id${recommendName}` }
                   data-testid={ `${index}-recommendation-card` }
                 >
                   <img src={ recommmend[`str${recommendName}Thumb`] } alt="ThumbNail" />
