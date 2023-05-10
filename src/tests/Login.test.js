@@ -5,7 +5,7 @@ import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import SearchBarProvider from '../context/SearchBarProvider';
 
-describe.skip('Teste tela de Login', () => {
+describe('Teste tela de Login', () => {
   test('testando se os inputs de Email, senha e botão estão na tela', () => {
     renderWithRouter(<SearchBarProvider><App /></SearchBarProvider>);
     const inputEmail = screen.getByTestId('email-input');

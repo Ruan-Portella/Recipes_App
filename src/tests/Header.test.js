@@ -6,7 +6,7 @@ import App from '../App';
 import Meals from '../pages/Meals';
 import SearchBarProvider from '../context/SearchBarProvider';
 
-describe.skip('Teste o Componente Header', () => {
+describe('Teste o Componente Header', () => {
   test('Verifica se o icone de pesquisa aparece na tela meals', async () => {
     renderWithRouter(<SearchBarProvider><App /></SearchBarProvider>);
     const inputEmail = screen.getByTestId('email-input');

@@ -7,6 +7,7 @@ import RecipeDetailsProvider from '../context/RecipeDetailsProvider';
 import DoneRecipes from '../pages/DoneRecipes';
 
 const date = '23/06/2020';
+const nameMock = 'Spicy Arrabiata Penne';
 
 const MockLocalStorage = [
   {
@@ -15,7 +16,7 @@ const MockLocalStorage = [
     nationality: 'Italian',
     category: 'Vegetarian',
     alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
+    name: nameMock,
     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
     doneDate: date,
     tags: ['Pasta', 'Curry'],
@@ -41,6 +42,8 @@ beforeEach(() => {
   );
 });
 
+const name = '0-horizontal-name';
+
 describe('Teste o Componente de DoneRecipes', () => {
   test('Verifica se quando clicado nos botões de filtros, acontece o mesmo', async () => {
     renderWithRouter(
@@ -52,19 +55,19 @@ describe('Teste o Componente de DoneRecipes', () => {
     const buttonFilterByMeal = await screen.findByTestId('filter-by-meal-btn');
     userEvent.click(buttonFilterByMeal);
 
-    const nameRecipe = screen.getByTestId('0-horizontal-name');
-    expect(nameRecipe.innerHTML).toBe('Spicy Arrabiata Penne');
+    const nameRecipe = screen.getByTestId(name);
+    expect(nameRecipe.innerHTML).toBe(nameMock);
     expect(screen.queryByTestId('1-horizontal-name')).not.toBeInTheDocument();
 
     const buttonFilterByDrinks = await screen.findByTestId('filter-by-drink-btn');
     userEvent.click(buttonFilterByDrinks);
 
-    expect(screen.queryByTestId('0-horizontal-name').innerHTML).toBe('Aquamarine');
+    expect(screen.queryByTestId(name).innerHTML).toBe('Aquamarine');
 
     const buttonFilterByAll = await screen.findByTestId('filter-by-all-btn');
     userEvent.click(buttonFilterByAll);
 
-    expect(screen.queryByTestId('0-horizontal-name').innerHTML).toBe('Spicy Arrabiata Penne');
+    expect(screen.queryByTestId(name).innerHTML).toBe(nameMock);
     expect(screen.queryByTestId('1-horizontal-name').innerHTML).toBe('Aquamarine');
 
     // userEvent.click(screen.getByTestId('0-horizontal-share-btn'));

@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import Profile from '../pages/Profile';
 
-describe.skip('Teste tela de Perfil', () => {
+describe('Teste tela de Perfil', () => {
   test('Verificando se os elementos Email e botões estão na tela', () => {
     renderWithRouter(<Profile />);
     const profileEmail = screen.getByTestId('profile-email');
