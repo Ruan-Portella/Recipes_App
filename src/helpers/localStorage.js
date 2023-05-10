@@ -17,3 +17,9 @@ export const saveRecipes = (recipe) => {
   const newSavedRecipes = [...savedRecipes, recipe];
   localStorage.setItem('favoriteRecipes', JSON.stringify(newSavedRecipes));
 };
+
+export const removeRecipes = (id) => {
+  const savedRecipes = getRecipes();
+  const newSavedRecipes = savedRecipes.filter((recipe) => recipe.id !== id);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(newSavedRecipes));
+};
