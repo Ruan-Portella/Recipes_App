@@ -6,13 +6,16 @@ import RecipeDetailsContext from '../context/RecipeDetailsContext';
 import '../styles/RecipeDetails.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { saveRecipes } from '../helpers/localStorage';
+import { saveRecipes, getRecipes, removeRecipes } from '../helpers/localStorage';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeDetails() {
   const { recipeDetails, pathname,
     recipeRecommend } = useContext(RecipeDetailsContext);
   const [alcoholic, setAlcoholic] = useState(false);
   const [shared, setShared] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const limitIngredients = 20;
   let ingredients = [];
   let name = 'Meal';
@@ -35,7 +38,6 @@ function RecipeDetails() {
       ingredients = [...ingredients, { ingredient, measure }];
     }
   }
-  console.log(recipeDetails);
   useEffect(() => {
     if (pathname.includes('/drinks')) {
       setAlcoholic(true);
@@ -65,6 +67,22 @@ function RecipeDetails() {
       image: recipeDetails[`str${name}Thumb`],
     };
     saveRecipes(recipeToSave);
+    setFavorite(true);
+  };
+
+  const callGetRecipes = () => {
+    const getFavorite = getRecipes();
+    const isFavorite = getFavorite.some((recipe) => recipe
+      .id === recipeDetails[`id${name}`]);
+    setFavorite(isFavorite);
+  };
+  useEffect(() => {
+    callGetRecipes();
+  });
+
+  const unfavoriteRecipe = () => {
+    removeRecipes(recipeDetails[`id${name}`]);
+    setFavorite(false);
   };
 
   return (
@@ -85,10 +103,22 @@ function RecipeDetails() {
           Compartilhar
         </button>
         <button
-          data-testid="favorite-btn"
-          onClick={ favoriteRecipe }
+          onClick={ () => (favorite ? unfavoriteRecipe() : favoriteRecipe()) }
         >
-          Favoritar
+          {favorite ? (
+            <img
+              data-testid="favorite-btn"
+              src={ blackHeartIcon }
+              alt="favorite"
+            />)
+            : (
+              <img
+                data-testid="favorite-btn"
+                src={ whiteHeartIcon }
+                alt="notfavorited"
+              />
+            ) }
+
         </button>
         <h1 data-testid="recipe-title">{recipeDetails[`str${name}`]}</h1>
         <p data-testid="recipe-category">{recipeDetails.strCategory}</p>

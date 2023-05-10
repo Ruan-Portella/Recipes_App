@@ -26,7 +26,6 @@ function RecipeDetailsProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    console.log('entrou');
     if (pathname.includes('in-progress')) {
       return () => {};
     } if (pathname.includes('/meals/')) {
