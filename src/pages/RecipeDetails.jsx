@@ -6,6 +6,7 @@ import RecipeDetailsContext from '../context/RecipeDetailsContext';
 import '../styles/RecipeDetails.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { saveRecipes } from '../helpers/localStorage';
 
 function RecipeDetails() {
   const { recipeDetails, pathname,
@@ -34,7 +35,7 @@ function RecipeDetails() {
       ingredients = [...ingredients, { ingredient, measure }];
     }
   }
-
+  console.log(recipeDetails);
   useEffect(() => {
     if (pathname.includes('/drinks')) {
       setAlcoholic(true);
@@ -49,6 +50,21 @@ function RecipeDetails() {
   const shareRecipe = () => {
     setShared(true);
     copy(window.location.href);
+  };
+
+  // [{ id, type, nationality, category, alcoholicOrNot, name, image }]
+
+  const favoriteRecipe = () => {
+    const recipeToSave = {
+      id: recipeDetails[`id${name}`],
+      type: name.toLowerCase(),
+      nationality: recipeDetails.strArea ? recipeDetails.strArea : '',
+      category: recipeDetails.strCategory,
+      alcoholicOrNot: recipeDetails.strAlcoholic ? recipeDetails.strAlcoholic : '',
+      name: recipeDetails[`str${name}`],
+      image: recipeDetails[`str${name}Thumb`],
+    };
+    saveRecipes(recipeToSave);
   };
 
   return (
@@ -68,7 +84,12 @@ function RecipeDetails() {
         >
           Compartilhar
         </button>
-        <button data-testid="favorite-btn">Favoritar</button>
+        <button
+          data-testid="favorite-btn"
+          onClick={ favoriteRecipe }
+        >
+          Favoritar
+        </button>
         <h1 data-testid="recipe-title">{recipeDetails[`str${name}`]}</h1>
         <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
         {
