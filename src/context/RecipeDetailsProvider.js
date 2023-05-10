@@ -29,10 +29,10 @@ function RecipeDetailsProvider({ children }) {
     console.log('entrou');
     if (pathname.includes('in-progress')) {
       return () => {};
-    } if (pathname.includes('/meals')) {
+    } if (pathname.includes('/meals/')) {
       fetchDetails(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idRecipe}`);
       fetchRecommend('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    } else {
+    } else if (pathname.includes('/drinks/')) {
       fetchDetails(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idRecipe}`);
       fetchRecommend('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
