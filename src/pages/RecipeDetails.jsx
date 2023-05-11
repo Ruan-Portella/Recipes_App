@@ -169,7 +169,7 @@ function RecipeDetails() {
           )
         }
       </section>
-      <Link to={ { pathname: `${pathname}/in-progress`, state: pathname } }>
+      <Link to={ { pathname: `${pathname}/in-progress`, state: recipeDetails } }>
         <button
           className="btn-start-recipe"
           data-testid="start-recipe-btn"
