@@ -54,6 +54,8 @@ function RecipeInProgress() {
             <label
               data-testid={ `${index}-ingredient-step` }
               key={ ingredient.ingredient }
+              className={ selectedItems.includes(ingredient.ingredient)
+                ? 'marked' : 'not-marked' }
             >
               <li
                 data-testid={ `${index}-ingredient-name-and-measure` }
@@ -64,8 +66,18 @@ function RecipeInProgress() {
                   checked={ selectedItems.includes(ingredient.ingredient) }
                   onChange={ (event) => handleCheckboxChange(event) }
                 />
-                <span>{ingredient.ingredient}</span>
-                <span>{ingredient.measure}</span>
+                <span
+                  // className={ selectedItems.includes(ingredient.ingredient)
+                  //   ? 'marked' : 'not-marked' }
+                >
+                  {ingredient.ingredient}
+                </span>
+                <span
+                  // className={ selectedItems.includes(ingredient.ingredient)
+                  //   ? 'marked' : 'not-marked' }
+                >
+                  {ingredient.measure}
+                </span>
               </li>
 
             </label>

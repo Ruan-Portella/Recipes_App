@@ -21,7 +21,6 @@ function RecipeInProgressProvider({ children }) {
 
   useEffect(() => {
     if (pathname.match(/^\/meals\/\d{4,6}\/in-progress$/)) {
-      console.log('entrou');
       fetchDetails(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idRecipe}`);
     } else if (pathname.match(/^\/drinks\/\d{4,6}\/in-progress$/)) {
       fetchDetails(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idRecipe}`);
