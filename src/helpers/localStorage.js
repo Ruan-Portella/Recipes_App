@@ -25,14 +25,37 @@ export const removeRecipes = (id) => {
 };
 
 export const getRecipeInProgress = () => {
+  const setLocal = {
+    drinks: {},
+    meals: {},
+  };
   const recipes = localStorage.getItem('inProgressRecipes');
   return recipes ? JSON.parse(recipes) : [];
 };
 
-export const saveRecipeInProgress = (recipe, mealOrDrink, id) => {
+export const saveRecipeInProgress = (selectedItems, mealOrDrink, id) => {
+  console.log('entrou no save');
   const savedRecipes = getRecipeInProgress();
   if (mealOrDrink === 'Meal') {
-    const newSavedRecipes = [...savedRecipes, recipe];
-    localStorage.setItem('inProgressRecipes', JSON.stringify(newSavedRecipes));
+    const setLocal = {
+      drinks: {
+        ...savedRecipes.drinks
+      },
+      meals: {
+        ...savedRecipes.meals,
+        [id]: selectedItems
+      },
+    };
+    return localStorage.setItem('inProgressRecipes', JSON.stringify(setLocal));
   }
+  const setLocal = {
+    drinks: {
+      ...savedRecipes.drinks,
+      [id]: selectedItems,
+    },
+    meals: {
+      ...savedRecipes.meals,
+    },
+  };
+  return localStorage.setItem('inProgressRecipes', JSON.stringify(setLocal));
 };

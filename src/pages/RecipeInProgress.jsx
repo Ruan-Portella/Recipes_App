@@ -1,19 +1,34 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import RecipeInProgressContext from '../context/RecipeInProgressContext';
-import { saveRecipeInProgress } from '../helpers/localStorage';
+import { saveRecipeInProgress, getRecipeInProgress } from '../helpers/localStorage';
 
 function RecipeInProgress() {
   const { recipeDetails, pathname } = useContext(RecipeInProgressContext);
   let mealOrDrink = 'Meal';
   let alcoholic = false;
+  let pathMealOrDrink = 'meals';
   const limitIngredients = 20;
   let ingredients = [];
   const [selectedItems, setSelectedItems] = useState([]);
+  const idPattern = /\d{5,6}/g;
+  const [idRecipe] = pathname.match(idPattern);
 
   if (pathname.includes('/drinks/')) {
     alcoholic = true;
     mealOrDrink = 'Drink';
+    pathMealOrDrink = 'drinks';
   }
+  
+  useEffect(() => {
+    const itensLocalStorage = getRecipeInProgress();
+    if (itensLocalStorage.drinks || itensLocalStorage.meals) {
+      setSelectedItems(itensLocalStorage[pathMealOrDrink][idRecipe]);
+    }
+  }, []);
+
+  useEffect(() => {
+    saveRecipeInProgress(selectedItems, mealOrDrink, idRecipe);
+  }, [selectedItems]);
 
   for (let index = 1; index <= limitIngredients; index += 1) {
     const ingredient = recipeDetails[`strIngredient${index}`];
@@ -27,9 +42,6 @@ function RecipeInProgress() {
   const handleCheckboxChange = ({ target }) => {
     const { name, id } = target;
     const isChecked = target.checked;
-    if (mealOrDrink === 'Meal') {
-      saveRecipeInProgress({meals: {[id]: [name]}}, mealOrDrink)
-    }
     setSelectedItems((prevSelectedItems) => {
       if (isChecked) {
         return [...prevSelectedItems, name];

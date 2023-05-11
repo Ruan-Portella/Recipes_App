@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import RecipeInProgressContext from './RecipeInProgressContext';
+import oneMeal from './oneMeal';
 
 function RecipeInProgressProvider({ children }) {
   const { pathname } = useLocation();
@@ -16,6 +17,7 @@ function RecipeInProgressProvider({ children }) {
   const fetchDetails = useCallback(async (url) => {
     const response = await fetch(url);
     const dataDetails = await response.json();
+    // return setRecipeDetails(oneMeal.meals[0]);
     return setRecipeDetails(dataDetails[Object.keys(dataDetails)][0]);
   }, []);
 
