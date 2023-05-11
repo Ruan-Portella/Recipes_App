@@ -7,7 +7,6 @@ import ButtonCategorie from '../components/ButtonCategorie';
 
 function Meals() {
   const { recipesData, categoriesData, searchBtn } = useContext(SearchBarContext);
-
   return (
     <>
       <Header title="Meals" icons />
