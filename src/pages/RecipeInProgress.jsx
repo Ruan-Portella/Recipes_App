@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import RecipeInProgressContext from '../context/RecipeInProgressContext';
 
 function RecipeInProgress() {
@@ -7,6 +7,8 @@ function RecipeInProgress() {
   let alcoholic = false;
   const limitIngredients = 20;
   let ingredients = [];
+  const [selectedItems, setSelectedItems] = useState([]);
+
   if (pathname.includes('/drinks/')) {
     alcoholic = true;
     mealOrDrink = 'Drink';
@@ -20,6 +22,18 @@ function RecipeInProgress() {
       ingredients = [...ingredients, { ingredient, measure }];
     }
   }
+
+  const handleCheckboxChange = ({ target }) => {
+    const { name } = target;
+    const isChecked = target.checked;
+    setSelectedItems((prevSelectedItems) => {
+      if (isChecked) {
+        return [...prevSelectedItems, name];
+      }
+      return prevSelectedItems.filter((item) => item !== name);
+    });
+  };
+
   return (
     <>
       <img
@@ -37,13 +51,24 @@ function RecipeInProgress() {
       <ul>
         {
           ingredients.map((ingredient, index) => (
-            <li
-              data-testid={ `${index}-ingredient-name-and-measure` }
+            <label
+              data-testid={ `${index}-ingredient-step` }
               key={ ingredient.ingredient }
             >
-              <span>{ingredient.ingredient}</span>
-              <span>{ingredient.measure}</span>
-            </li>
+              <li
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                <input
+                  type="checkbox"
+                  name={ ingredient.ingredient }
+                  checked={ selectedItems.includes(ingredient.ingredient) }
+                  onChange={ (event) => handleCheckboxChange(event) }
+                />
+                <span>{ingredient.ingredient}</span>
+                <span>{ingredient.measure}</span>
+              </li>
+
+            </label>
           ))
         }
       </ul>
