@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import RecipeInProgressContext from '../context/RecipeInProgressContext';
+import { saveRecipeInProgress } from '../helpers/localStorage';
 
 function RecipeInProgress() {
   const { recipeDetails, pathname } = useContext(RecipeInProgressContext);
@@ -24,8 +25,11 @@ function RecipeInProgress() {
   }
 
   const handleCheckboxChange = ({ target }) => {
-    const { name } = target;
+    const { name, id } = target;
     const isChecked = target.checked;
+    if (mealOrDrink === 'Meal') {
+      saveRecipeInProgress({meals: {[id]: [name]}}, mealOrDrink)
+    }
     setSelectedItems((prevSelectedItems) => {
       if (isChecked) {
         return [...prevSelectedItems, name];
@@ -62,20 +66,15 @@ function RecipeInProgress() {
               >
                 <input
                   type="checkbox"
+                  id={recipeDetails[`id${mealOrDrink}`]}
                   name={ ingredient.ingredient }
                   checked={ selectedItems.includes(ingredient.ingredient) }
                   onChange={ (event) => handleCheckboxChange(event) }
                 />
-                <span
-                  // className={ selectedItems.includes(ingredient.ingredient)
-                  //   ? 'marked' : 'not-marked' }
-                >
+                <span>
                   {ingredient.ingredient}
                 </span>
-                <span
-                  // className={ selectedItems.includes(ingredient.ingredient)
-                  //   ? 'marked' : 'not-marked' }
-                >
+                <span>
                   {ingredient.measure}
                 </span>
               </li>

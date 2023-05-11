@@ -23,3 +23,16 @@ export const removeRecipes = (id) => {
   const newSavedRecipes = savedRecipes.filter((recipe) => recipe.id !== id);
   localStorage.setItem('favoriteRecipes', JSON.stringify(newSavedRecipes));
 };
+
+export const getRecipeInProgress = () => {
+  const recipes = localStorage.getItem('inProgressRecipes');
+  return recipes ? JSON.parse(recipes) : [];
+};
+
+export const saveRecipeInProgress = (recipe, mealOrDrink, id) => {
+  const savedRecipes = getRecipeInProgress();
+  if (mealOrDrink === 'Meal') {
+    const newSavedRecipes = [...savedRecipes, recipe];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newSavedRecipes));
+  }
+};
