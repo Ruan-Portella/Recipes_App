@@ -18,17 +18,18 @@ function RecipeInProgress() {
     mealOrDrink = 'Drink';
     pathMealOrDrink = 'drinks';
   }
-  
+
   useEffect(() => {
     const itensLocalStorage = getRecipeInProgress();
-    if (itensLocalStorage.drinks || itensLocalStorage.meals) {
+    if (!Array.isArray(itensLocalStorage)
+      && itensLocalStorage[pathMealOrDrink][idRecipe]) {
       setSelectedItems(itensLocalStorage[pathMealOrDrink][idRecipe]);
     }
   }, []);
 
   useEffect(() => {
     saveRecipeInProgress(selectedItems, mealOrDrink, idRecipe);
-  }, [selectedItems]);
+  }, [selectedItems, mealOrDrink, idRecipe]);
 
   for (let index = 1; index <= limitIngredients; index += 1) {
     const ingredient = recipeDetails[`strIngredient${index}`];
@@ -40,7 +41,7 @@ function RecipeInProgress() {
   }
 
   const handleCheckboxChange = ({ target }) => {
-    const { name, id } = target;
+    const { name } = target;
     const isChecked = target.checked;
     setSelectedItems((prevSelectedItems) => {
       if (isChecked) {
@@ -78,7 +79,7 @@ function RecipeInProgress() {
               >
                 <input
                   type="checkbox"
-                  id={recipeDetails[`id${mealOrDrink}`]}
+                  id={ recipeDetails[`id${mealOrDrink}`] }
                   name={ ingredient.ingredient }
                   checked={ selectedItems.includes(ingredient.ingredient) }
                   onChange={ (event) => handleCheckboxChange(event) }
@@ -90,7 +91,6 @@ function RecipeInProgress() {
                   {ingredient.measure}
                 </span>
               </li>
-
             </label>
           ))
         }
