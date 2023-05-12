@@ -19,7 +19,7 @@ function RecipeInProgress() {
   const [idRecipe] = pathname.match(idPattern);
   const [shared, setShared] = useState(false);
   const [favorite, setFavorite] = useState(false);
-
+  const [finishRecipe, setFinishRecipe] = useState(false);
   if (pathname.includes('/drinks/')) {
     alcoholic = true;
     mealOrDrink = 'Drink';
@@ -29,7 +29,7 @@ function RecipeInProgress() {
   useEffect(() => {
     const itensLocalStorage = getRecipeInProgress();
     if (!Array.isArray(itensLocalStorage)
-      && itensLocalStorage[pathMealOrDrink][idRecipe]) {
+    && itensLocalStorage[pathMealOrDrink][idRecipe]) {
       setSelectedItems(itensLocalStorage[pathMealOrDrink][idRecipe]);
     }
   }, [idRecipe, pathMealOrDrink]);
@@ -41,7 +41,6 @@ function RecipeInProgress() {
   for (let index = 1; index <= limitIngredients; index += 1) {
     const ingredient = recipeDetails[`strIngredient${index}`];
     const measure = recipeDetails[`strMeasure${index}`];
-
     if (ingredient) {
       ingredients = [...ingredients, { ingredient, measure }];
     }
@@ -87,6 +86,11 @@ function RecipeInProgress() {
   };
   useEffect(() => {
     callGetRecipes();
+    if (ingredients.length === selectedItems.length) {
+      setFinishRecipe(true);
+    } else if (ingredients.length !== selectedItems.length) {
+      setFinishRecipe(false);
+    }
   });
 
   const unfavoriteRecipe = () => {
@@ -165,6 +169,8 @@ function RecipeInProgress() {
       </ul>
       <span data-testid="instructions">{recipeDetails.strInstructions}</span>
       <button
+        disabled={ !finishRecipe }
+        className="btn-finish-recipe"
         data-testid="finish-recipe-btn"
       >
         Finish Recipe

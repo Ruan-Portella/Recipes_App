@@ -13,3 +13,9 @@ footer {
 .marked {
   text-decoration: line-through solid black;
 }
+
+.btn-finish-recipe {
+  bottom: 0;
+  display: flex;
+  position: fixed;
+}
