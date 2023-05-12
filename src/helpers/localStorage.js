@@ -54,3 +54,14 @@ export const saveRecipeInProgress = (selectedItems, mealOrDrink, id) => {
   };
   return localStorage.setItem('inProgressRecipes', JSON.stringify(setLocal));
 };
+
+export const getRecipesFinished = () => {
+  const recipes = localStorage.getItem('doneRecipes');
+  return recipes ? JSON.parse(recipes) : [];
+};
+
+export const saveRecipesFinished = (recipe) => {
+  const savedRecipes = getRecipesFinished();
+  const newSavedRecipes = [...savedRecipes, recipe];
+  localStorage.setItem('doneRecipes', JSON.stringify(newSavedRecipes));
+};

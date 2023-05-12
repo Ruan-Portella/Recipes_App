@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import copy from 'clipboard-copy';
+import { useHistory } from 'react-router-dom';
 import RecipeInProgressContext from '../context/RecipeInProgressContext';
 import { saveRecipeInProgress,
   getRecipeInProgress,
+  saveRecipesFinished,
   saveRecipes, getRecipes, removeRecipes } from '../helpers/localStorage';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -98,6 +100,27 @@ function RecipeInProgress() {
     setFavorite(false);
   };
 
+  const saveDoneRecipe = () => {
+    const recipeToSave = {
+      id: recipeDetails[`id${mealOrDrink}`],
+      type: mealOrDrink.toLowerCase(),
+      nationality: recipeDetails.strArea ? recipeDetails.strArea : '',
+      category: recipeDetails.strCategory,
+      alcoholicOrNot: recipeDetails.strAlcoholic ? recipeDetails.strAlcoholic : '',
+      name: recipeDetails[`str${mealOrDrink}`],
+      image: recipeDetails[`str${mealOrDrink}Thumb`],
+      doneDate: new Date(Date.now()),
+      tags: recipeDetails.strTags ? recipeDetails.strTags.split(',') : [],
+    };
+    saveRecipesFinished(recipeToSave);
+  };
+
+  const history = useHistory();
+  const clickFinishRecipe = () => {
+    saveDoneRecipe();
+    history.push('/done-recipes');
+  };
+
   return (
     <section>
       {
@@ -169,6 +192,7 @@ function RecipeInProgress() {
       </ul>
       <span data-testid="instructions">{recipeDetails.strInstructions}</span>
       <button
+        onClick={ clickFinishRecipe }
         disabled={ !finishRecipe }
         className="btn-finish-recipe"
         data-testid="finish-recipe-btn"
