@@ -7,7 +7,7 @@ const buttonClipeBoard = (type, id, recipeIndex, { state }) => (
     <button
       onClick={ () => {
         copy(`http://localhost:3000/${type}s/${id}`);
-        state.setSharedDoneRecipe(true);
+        state.setShared(true);
       } }
     >
       <img
@@ -17,7 +17,7 @@ const buttonClipeBoard = (type, id, recipeIndex, { state }) => (
       />
     </button>
     {
-      state.sharedDoneRecipe && (
+      state.shared && (
         <span
           data-testid={ `${recipeIndex}-shared` }
         >
