@@ -1,6 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
+import copy from 'clipboard-copy';
 import RecipeInProgressContext from '../context/RecipeInProgressContext';
-import { saveRecipeInProgress, getRecipeInProgress } from '../helpers/localStorage';
+import { saveRecipeInProgress,
+  getRecipeInProgress,
+  saveRecipes, getRecipes, removeRecipes } from '../helpers/localStorage';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeInProgress() {
   const { recipeDetails, pathname } = useContext(RecipeInProgressContext);
@@ -12,6 +17,8 @@ function RecipeInProgress() {
   const [selectedItems, setSelectedItems] = useState([]);
   const idPattern = /\d{5,6}/g;
   const [idRecipe] = pathname.match(idPattern);
+  const [shared, setShared] = useState(false);
+  const [favorite, setFavorite] = useState(false);
 
   if (pathname.includes('/drinks/')) {
     alcoholic = true;
@@ -25,7 +32,7 @@ function RecipeInProgress() {
       && itensLocalStorage[pathMealOrDrink][idRecipe]) {
       setSelectedItems(itensLocalStorage[pathMealOrDrink][idRecipe]);
     }
-  }, []);
+  }, [idRecipe, pathMealOrDrink]);
 
   useEffect(() => {
     saveRecipeInProgress(selectedItems, mealOrDrink, idRecipe);
@@ -51,15 +58,74 @@ function RecipeInProgress() {
     });
   };
 
+  const shareRecipe = () => {
+    setShared(true);
+    copy(window.location.href);
+  };
+
+  const favoriteRecipe = () => {
+    const recipeToSave = {
+      id: recipeDetails[`id${mealOrDrink}`],
+      type: mealOrDrink.toLowerCase(),
+      nationality: recipeDetails.strArea ? recipeDetails.strArea : '',
+      category: recipeDetails.strCategory,
+      alcoholicOrNot: recipeDetails.strAlcoholic ? recipeDetails.strAlcoholic : '',
+      name: recipeDetails[`str${mealOrDrink}`],
+      image: recipeDetails[`str${mealOrDrink}Thumb`],
+    };
+    saveRecipes(recipeToSave);
+    setFavorite(true);
+  };
+
+  const callGetRecipes = () => {
+    const getFavorite = getRecipes();
+    const isFavorite = getFavorite.some((recipe) => recipe
+      .id === recipeDetails[`id${mealOrDrink}`]);
+    setFavorite(isFavorite);
+  };
+  useEffect(() => {
+    callGetRecipes();
+  });
+
+  const unfavoriteRecipe = () => {
+    removeRecipes(recipeDetails[`id${mealOrDrink}`]);
+    setFavorite(false);
+  };
+
   return (
-    <>
+    <section>
+      {
+        shared && <span>Link copied!</span>
+      }
       <img
         data-testid="recipe-photo"
         src={ recipeDetails[`str${mealOrDrink}Thumb`] }
         alt="Recipe"
       />
-      <button data-testid="share-btn">Compartilhar</button>
-      <button data-testid="favorite-btn">Favoritar</button>
+      <button
+        data-testid="share-btn"
+        onClick={ () => shareRecipe() }
+      >
+        Compartilhar
+      </button>
+      <button
+        onClick={ () => (favorite ? unfavoriteRecipe() : favoriteRecipe()) }
+      >
+        {favorite ? (
+          <img
+            data-testid="favorite-btn"
+            src={ blackHeartIcon }
+            alt="favorite"
+          />)
+          : (
+            <img
+              data-testid="favorite-btn"
+              src={ whiteHeartIcon }
+              alt="notfavorited"
+            />
+          ) }
+
+      </button>
       <h1 data-testid="recipe-title">{recipeDetails[`str${mealOrDrink}`]}</h1>
       <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
       {
@@ -70,7 +136,7 @@ function RecipeInProgress() {
           ingredients.map((ingredient, index) => (
             <label
               data-testid={ `${index}-ingredient-step` }
-              key={ ingredient.ingredient }
+              key={ ingredient.ingredient + ingredient.measure }
               className={ selectedItems.includes(ingredient.ingredient)
                 ? 'marked' : 'not-marked' }
             >
@@ -101,7 +167,7 @@ function RecipeInProgress() {
       >
         Finish Recipe
       </button>
-    </>
+    </section>
   );
 }
 
