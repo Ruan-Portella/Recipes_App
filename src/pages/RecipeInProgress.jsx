@@ -60,7 +60,9 @@ function RecipeInProgress() {
 
   const shareRecipe = () => {
     setShared(true);
-    copy(window.location.href);
+    const urlComplete = window.location.href;
+    const urlToShare = urlComplete.replace('/in-progress', '');
+    copy(urlToShare);
   };
 
   const favoriteRecipe = () => {
