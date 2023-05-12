@@ -5,7 +5,7 @@ import Header from '../components/Header';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
-  const [sharedDoneRecipe, setSharedDoneRecipe] = useState(false);
+  const [shared, setShared] = useState(false);
   const date = '23/06/2020';
 
   useEffect(() => {
@@ -136,8 +136,8 @@ function DoneRecipes() {
                     index,
                     {
                       state: {
-                        setSharedDoneRecipe,
-                        sharedDoneRecipe,
+                        setShared,
+                        shared,
                       },
                     },
                   )
