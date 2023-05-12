@@ -11,5 +11,11 @@ footer {
 }
 
 .marked {
-  text-decoration: line-through solid rgb(0, 0, 0);
+  text-decoration: line-through solid black;
+}
+
+.btn-finish-recipe {
+  bottom: 0;
+  display: flex;
+  position: fixed;
 }

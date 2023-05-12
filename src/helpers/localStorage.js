@@ -23,3 +23,48 @@ export const removeRecipes = (id) => {
   const newSavedRecipes = savedRecipes.filter((recipe) => recipe.id !== id);
   localStorage.setItem('favoriteRecipes', JSON.stringify(newSavedRecipes));
 };
+
+export const getRecipeInProgress = () => {
+  const recipes = localStorage.getItem('inProgressRecipes');
+  return recipes ? JSON.parse(recipes) : [];
+};
+
+export const saveRecipeInProgress = (selectedItems, mealOrDrink, id) => {
+  const savedRecipes = getRecipeInProgress();
+  if (mealOrDrink === 'Meal') {
+    const setLocal = {
+      drinks: {
+        ...savedRecipes.drinks,
+      },
+      meals: {
+        ...savedRecipes.meals,
+        [id]: selectedItems,
+      },
+    };
+    return localStorage.setItem('inProgressRecipes', JSON.stringify(setLocal));
+  }
+  const setLocal = {
+    drinks: {
+      ...savedRecipes.drinks,
+      [id]: selectedItems,
+    },
+    meals: {
+      ...savedRecipes.meals,
+    },
+  };
+  return localStorage.setItem('inProgressRecipes', JSON.stringify(setLocal));
+};
+
+export const getRecipesFinished = () => {
+  const recipes = localStorage.getItem('doneRecipes');
+  return recipes ? JSON.parse(recipes) : [];
+};
+
+export const saveRecipesFinished = (recipe) => {
+  const savedRecipes = getRecipesFinished();
+  const recipeExists = savedRecipes.some((savedRecipe) => savedRecipe.id === recipe.id);
+  if (!recipeExists) {
+    const newSavedRecipes = [...savedRecipes, recipe];
+    localStorage.setItem('doneRecipes', JSON.stringify(newSavedRecipes));
+  }
+};
