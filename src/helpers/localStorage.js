@@ -62,6 +62,9 @@ export const getRecipesFinished = () => {
 
 export const saveRecipesFinished = (recipe) => {
   const savedRecipes = getRecipesFinished();
-  const newSavedRecipes = [...savedRecipes, recipe];
-  localStorage.setItem('doneRecipes', JSON.stringify(newSavedRecipes));
+  const recipeExists = savedRecipes.some((savedRecipe) => savedRecipe.id === recipe.id);
+  if (!recipeExists) {
+    const newSavedRecipes = [...savedRecipes, recipe];
+    localStorage.setItem('doneRecipes', JSON.stringify(newSavedRecipes));
+  }
 };
