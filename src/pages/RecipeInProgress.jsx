@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
 import RecipeInProgressContext from '../context/RecipeInProgressContext';
@@ -17,8 +17,8 @@ function RecipeInProgress() {
   const limitIngredients = 20;
   let ingredients = [];
   const [selectedItems, setSelectedItems] = useState([]);
-  // const idPattern = /\d{5,6}/g;
-  // const [idRecipe] = pathname.match(idPattern);
+  const idPattern = /\d{5,6}/g;
+  const [idRecipe] = pathname.match(idPattern);
   const [shared, setShared] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [finishRecipe, setFinishRecipe] = useState(false);
@@ -34,11 +34,11 @@ function RecipeInProgress() {
     && itensLocalStorage[pathMealOrDrink][idRecipe]) {
       setSelectedItems(itensLocalStorage[pathMealOrDrink][idRecipe]);
     }
-  }, [pathMealOrDrink]);
+  }, [idRecipe, pathMealOrDrink]);
 
   useEffect(() => {
     saveRecipeInProgress(selectedItems, mealOrDrink, idRecipe);
-  }, [selectedItems, mealOrDrink]);
+  }, [selectedItems, mealOrDrink, idRecipe]);
 
   for (let index = 1; index <= limitIngredients; index += 1) {
     const ingredient = recipeDetails[`strIngredient${index}`];
@@ -80,13 +80,12 @@ function RecipeInProgress() {
     setFavorite(true);
   };
 
-  const callGetRecipes = useCallback(() => {
+  const callGetRecipes = () => {
     const getFavorite = getRecipes();
     const isFavorite = getFavorite.some((recipe) => recipe
       .id === recipeDetails[`id${mealOrDrink}`]);
     setFavorite(isFavorite);
-  }, [mealOrDrink, recipeDetails]);
-
+  };
   useEffect(() => {
     callGetRecipes();
     if (ingredients.length === selectedItems.length) {
@@ -94,7 +93,7 @@ function RecipeInProgress() {
     } else if (ingredients.length !== selectedItems.length) {
       setFinishRecipe(false);
     }
-  }, [callGetRecipes, ingredients, selectedItems]);
+  });
 
   const unfavoriteRecipe = () => {
     removeRecipes(recipeDetails[`id${mealOrDrink}`]);
