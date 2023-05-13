@@ -9,7 +9,6 @@ import soupMeals from '../../cypress/mocks/soupMeals';
 import App from '../App';
 import RecipeDetailsProvider from '../context/RecipeDetailsProvider';
 import RecipeInProgressProvider from '../context/RecipeInProgressProvider';
-import dessertMeals from '../../cypress/mocks/dessertMeals';
 import meals from '../../cypress/mocks/meals';
 import oneMeal from '../../cypress/mocks/oneMeal';
 
@@ -48,6 +47,9 @@ const fetchResolved = (data) => () => new Promise((resolve) => {
   });
 });
 
+const searchInput = 'search-input';
+const buttonExec = 'exec-search-btn';
+
 describe('', () => {
   afterEach(() => {
     global.fetch.mockRestore();
@@ -63,11 +65,11 @@ describe('', () => {
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
     const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
-    const InputValue = screen.getByTestId('search-input');
+    const InputValue = screen.getByTestId(searchInput);
     userEvent.type(InputValue, 'soup');
     const nameInput = screen.getByTestId('name-search-radio');
     userEvent.click(nameInput);
-    const button = screen.getByTestId('exec-search-btn');
+    const button = screen.getByTestId(buttonExec);
     userEvent.click(button);
     await waitFor(() => {
       const nameCard = screen.getByTestId('8-card-name');
@@ -116,8 +118,8 @@ describe('', () => {
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
     const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
-    const SearchInput = screen.getByTestId('search-input');
-    const execButton = screen.getByTestId('exec-search-btn');
+    const SearchInput = screen.getByTestId(searchInput);
+    const execButton = screen.getByTestId(buttonExec);
     const IngredientInput = screen.getByTestId('first-letter-search-radio');
 
     userEvent.type(SearchInput, 'cj');
@@ -146,8 +148,8 @@ describe('', () => {
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
     const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
-    const SearchInput = screen.getByTestId('search-input');
-    const execButton = screen.getByTestId('exec-search-btn');
+    const SearchInput = screen.getByTestId(searchInput);
+    const execButton = screen.getByTestId(buttonExec);
     const IngredientInput = screen.getByTestId('name-search-radio');
 
     userEvent.type(SearchInput, 'xabalu');
@@ -187,8 +189,8 @@ describe('', () => {
 
     const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
-    const SearchInput = screen.getByTestId('search-input');
-    const execButton = screen.getByTestId('exec-search-btn');
+    const SearchInput = screen.getByTestId(searchInput);
+    const execButton = screen.getByTestId(buttonExec);
     const IngredientInput = screen.getByTestId('ingredient-search-radio');
 
     userEvent.type(SearchInput, 'Spicy Arrabiata Penne');
