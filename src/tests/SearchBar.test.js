@@ -57,11 +57,8 @@ describe('', () => {
   });
   const SEARCH = 'search-btn';
   test('teste 1', async () => {
-    (
-      global.fetch = jest.fn(async () => ({
-        json: () => Promise.resolve({ meals: soupMeals.meals }),
-      }))
-    );
+    jest.spyOn(global, 'fetch').mockImplementation(fetchResolved({ meals: soupMeals.meals }));
+
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
     const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
@@ -78,28 +75,20 @@ describe('', () => {
   });
 
   test('teste 2', async () => {
-    jest.spyOn(global, 'alert');
+    jest.spyOn(global, 'fetch').mockImplementation(fetchResolved({ meals: soupMeals.meals })).mockImplementationOnce(fetchResolved(mealCategories));
+    act(() => {
+      renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
+    });
 
-    (
-      global.fetch = jest.fn(async () => ({
-        json: () => Promise.resolve({ meals: soupMeals }),
-      }))
-    );
-    renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
     const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
+
     const IngredientInput = screen.getByTestId('ingredient-search-radio');
     userEvent.click(IngredientInput);
   });
 
   test('teste 3', async () => {
-    jest.spyOn(global, 'alert');
-
-    (
-      global.fetch = jest.fn(async () => ({
-        json: () => Promise.resolve({ meals: soupMeals }),
-      }))
-    );
+    jest.spyOn(global, 'fetch').mockImplementation(fetchResolved({ meals: soupMeals.meals }));
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
     const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
@@ -110,11 +99,8 @@ describe('', () => {
   test('teste 4', async () => {
     jest.spyOn(global, 'alert');
 
-    (
-      global.fetch = jest.fn(async () => ({
-        json: () => Promise.resolve({ meals: oneMeal.meals }),
-      }))
-    );
+    jest.spyOn(global, 'fetch').mockImplementation(fetchResolved({ meals: soupMeals.meals }));
+
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
     const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
@@ -164,15 +150,7 @@ describe('', () => {
   });
 
   test('teste 6', async () => {
-    jest.spyOn(global, 'alert');
-
-    (
-      global.fetch = jest.fn(async () => ({
-        json: () => Promise.resolve({ meals: oneMeal.meals }),
-      }))
-    );
-    jest.spyOn(global, 'fetch')
-      .mockImplementationOnce(fetchResolved(mealCategories));
+    jest.spyOn(global, 'fetch').mockImplementation(fetchResolved({ meals: oneMeal.meals })).mockImplementationOnce(fetchResolved(mealCategories));
     const { history } = renderWithRouter(
       <SearchBarProvider>
         <RecipeDetailsProvider>
@@ -205,7 +183,6 @@ describe('', () => {
   });
 
   test('teste 7', async () => {
-    jest.spyOn(global, 'alert');
     jest.spyOn(global, 'fetch').mockImplementation(fetchResolved({ meals: meals.meals }))
       .mockImplementationOnce(fetchResolved(mealCategories));
 
@@ -230,16 +207,7 @@ describe('', () => {
   });
 
   test('teste 8', async () => {
-    jest.spyOn(global, 'alert');
-
-    (
-      global.fetch = jest.fn(async () => ({
-        json: () => Promise.resolve({ meals: meals.meals }),
-      }))
-    );
-    jest.spyOn(global, 'fetch')
-      .mockImplementationOnce(fetchResolved(mealCategories));
-
+    jest.spyOn(global, 'fetch').mockImplementation(fetchResolved({ meals: meals.meals }));
     const { history } = renderWithRouter(
       <SearchBarProvider>
         <RecipeDetailsProvider>
