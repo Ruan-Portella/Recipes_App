@@ -122,7 +122,7 @@ describe('', () => {
     const execButton = screen.getByTestId(buttonExec);
     const IngredientInput = screen.getByTestId('first-letter-search-radio');
 
-    userEvent.type(SearchInput, 'cj');
+    userEvent.type(SearchInput, 'cj2');
     userEvent.click(IngredientInput);
     const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
 
