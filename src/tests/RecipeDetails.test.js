@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import SearchBarProvider from '../context/SearchBarProvider';
@@ -54,6 +54,7 @@ describe('Teste a dela de Detalhe de receitas', () => {
     const btnfavorite = screen.getByRole('img', { name: /favorite/i });
     userEvent.click(btnNotFavorite);
     expect(btnfavorite).toBeInTheDocument();
+    userEvent.click(btnfavorite);
     const video = screen.getByTitle(/video/i);
     expect(video).toBeInTheDocument();
   });
@@ -71,5 +72,30 @@ describe('Teste a dela de Detalhe de receitas', () => {
 
     const btnCompartilhar = await screen.findByRole('button', { name: /compartilhar/i });
     expect(btnCompartilhar).toBeInTheDocument();
+  });
+  test('Testa a função de compartilhar foi chamada', async () => {
+    const { history } = renderWithRouter(
+      <SearchBarProvider>
+        <RecipeDetailsProvider>
+          <RecipeInProgressProvider>
+            <App />
+          </RecipeInProgressProvider>
+        </RecipeDetailsProvider>
+      </SearchBarProvider>,
+    );
+    const clipboardMock = {
+      writeText: jest.fn(),
+    };
+    Object.defineProperty(window.navigator, 'clipboard', {
+      value: clipboardMock,
+    });
+    await waitFor(() => {
+      history.push(URL_MEALS);
+      const title = screen.getByTestId('5-ingredient-name-and-measure');
+      expect(title).toBeInTheDocument();
+    });
+    const share = screen.getByRole('button', { name: /compartilhar/i });
+    userEvent.click(share);
+    expect(clipboardMock.writeText).toHaveBeenCalled();
   });
 });
