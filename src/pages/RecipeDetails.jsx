@@ -3,7 +3,6 @@ import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import RecipeDetailsContext from '../context/RecipeDetailsContext';
-import '../styles/RecipeDetails.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { saveRecipes, getRecipes, removeRecipes } from '../helpers/localStorage';
