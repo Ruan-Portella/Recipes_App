@@ -38,6 +38,7 @@ function RecipeDetails() {
       ingredients = [...ingredients, { ingredient, measure }];
     }
   }
+
   useEffect(() => {
     if (pathname.includes('/drinks')) {
       setAlcoholic(true);

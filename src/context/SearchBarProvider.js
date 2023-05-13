@@ -1,30 +1,33 @@
 import PropTypes from 'prop-types';
 import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import SearchBarContext from './SearchBarContext';
 
 function SearchBarProvider({ children }) {
   const { pathname } = useLocation();
   const [recipesData, setRecipesData] = useState([]);
   const [categoriesData, setCategoriesData] = useState([]);
+  const history = useHistory();
   const limitSearch = 12;
   const limitCategory = 5;
 
   const fetchApi = useCallback(async (url) => {
     const response = await fetch(url);
     const dataApi = await response.json();
-    if (!dataApi[Object.keys(dataApi)]) {
+    if (!dataApi[Object.keys(dataApi)] || dataApi[Object.keys(dataApi)] === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } else if (dataApi[Object.keys(dataApi)].length <= 1) {
       let id = 'idDrink';
       if (pathname === '/meals') {
         id = 'idMeal';
       }
-      window.location.href = `${pathname}/${(dataApi[Object.keys(dataApi)])[0][id]}`;
+      history.push(`${pathname}/${(dataApi[Object.keys(dataApi)])[0][id]}`);
+      // window.location.href = `${pathname}/${(dataApi[Object.keys(dataApi)])[0][id]}`;
     } else {
       return setRecipesData((dataApi[Object.keys(dataApi)]).slice(0, limitSearch));
     }
-  }, [pathname]);
+  }, [pathname, history]);
 
   const fetchCategory = useCallback(async (url) => {
     const response = await fetch(url);
