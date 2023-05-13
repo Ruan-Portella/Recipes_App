@@ -17,8 +17,8 @@ function RecipeInProgress() {
   const limitIngredients = 20;
   let ingredients = [];
   const [selectedItems, setSelectedItems] = useState([]);
-  const idPattern = /\d{5,6}/g;
-  const [idRecipe] = pathname.match(idPattern);
+  // const idPattern = /\d{5,6}/g;
+  // const [idRecipe] = pathname.match(idPattern);
   const [shared, setShared] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [finishRecipe, setFinishRecipe] = useState(false);
