@@ -15,7 +15,7 @@ function SearchBarProvider({ children }) {
   const fetchApi = useCallback(async (url) => {
     const response = await fetch(url);
     const dataApi = await response.json();
-    if (!dataApi[Object.keys(dataApi)]) {
+    if (!dataApi[Object.keys(dataApi)] || dataApi[Object.keys(dataApi)] === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } else if (dataApi[Object.keys(dataApi)].length <= 1) {
       let id = 'idDrink';

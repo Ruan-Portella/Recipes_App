@@ -40,7 +40,7 @@ const mealCategories = {
   ],
 };
 
-const setupFetchStub = (data) => () => new Promise((resolve) => {
+const fetchResolved = (data) => () => new Promise((resolve) => {
   resolve({
     json: () => Promise.resolve({
       ...data,
@@ -57,7 +57,7 @@ describe('', () => {
   test('teste 1', async () => {
     (
       global.fetch = jest.fn(async () => ({
-        json: () => Promise.resolve({ meals: soupMeals }),
+        json: () => Promise.resolve({ meals: soupMeals.meals }),
       }))
     );
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
@@ -142,11 +142,7 @@ describe('', () => {
 
   test('teste 5', async () => {
     jest.spyOn(global, 'alert');
-    (
-      global.fetch = jest.fn(async () => ({
-        json: () => Promise.resolve({ meals: null }),
-      }))
-    );
+    jest.spyOn(global, 'fetch').mockImplementation(fetchResolved({ meals: null })).mockImplementationOnce(fetchResolved(mealCategories));
     renderWithRouter(<SearchBarProvider><Meals /></SearchBarProvider>);
     const btnSearch = screen.getByTestId(SEARCH);
     userEvent.click(btnSearch);
@@ -174,7 +170,7 @@ describe('', () => {
       }))
     );
     jest.spyOn(global, 'fetch')
-      .mockImplementationOnce(setupFetchStub(mealCategories));
+      .mockImplementationOnce(fetchResolved(mealCategories));
     const { history } = renderWithRouter(
       <SearchBarProvider>
         <RecipeDetailsProvider>
@@ -208,14 +204,8 @@ describe('', () => {
 
   test('teste 7', async () => {
     jest.spyOn(global, 'alert');
-
-    (
-      global.fetch = jest.fn(async () => ({
-        json: () => Promise.resolve({ meals: meals.meals }),
-      }))
-    );
-    jest.spyOn(global, 'fetch')
-      .mockImplementationOnce(setupFetchStub(mealCategories));
+    jest.spyOn(global, 'fetch').mockImplementation(fetchResolved({ meals: meals.meals }))
+      .mockImplementationOnce(fetchResolved(mealCategories));
 
     const { history } = renderWithRouter(
       <SearchBarProvider>
@@ -246,7 +236,7 @@ describe('', () => {
       }))
     );
     jest.spyOn(global, 'fetch')
-      .mockImplementationOnce(setupFetchStub(mealCategories));
+      .mockImplementationOnce(fetchResolved(mealCategories));
 
     const { history } = renderWithRouter(
       <SearchBarProvider>
