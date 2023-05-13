@@ -53,7 +53,6 @@ test('clicking All button triggers search', () => {
       <Drinks />
     </SearchBarContext.Provider>,
   );
-
   const allButton = screen.getByTestId('All-category-filter');
   fireEvent.click(allButton);
 
