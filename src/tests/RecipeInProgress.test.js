@@ -25,15 +25,13 @@ const fetchResolved = (data) => () => new Promise((resolve) => {
   });
 });
 
+const historyPush = '/meals/52771/in-progress';
+const ingredient0 = '0-ingredient-name-and-measure';
+
 describe('Testa a página de receitas em Progresso com uma receita de /meal/', () => {
   const mockLocal = {
     drinks: {},
     meals: { 52771: [] },
-  };
-
-  const mockLocalWithoutIngredient = {
-    drinks: {},
-    meals: { 52771: ['penne rigate'] },
   };
 
   const mockLocalWithAllIngredients = {
@@ -55,8 +53,8 @@ describe('Testa a página de receitas em Progresso com uma receita de /meal/', (
     );
 
     await waitFor(() => {
-      history.push('/meals/52771/in-progress');
-      const title = screen.getByTestId('0-ingredient-name-and-measure');
+      history.push(historyPush);
+      const title = screen.getByTestId(ingredient0);
       expect(title).toBeInTheDocument();
     });
 
@@ -80,7 +78,7 @@ describe('Testa a página de receitas em Progresso com uma receita de /meal/', (
     );
 
     await waitFor(() => {
-      history.push('/meals/52771/in-progress');
+      history.push(historyPush);
       const title = screen.getByRole('heading', { name: /spicy arrabiata penne/i });
       expect(title).toBeInTheDocument();
     });
@@ -97,7 +95,7 @@ describe('Testa a página de receitas em Progresso com uma receita de /meal/', (
     });
 
     await waitFor(() => {
-      history.push('/meals/52771/in-progress');
+      history.push(historyPush);
       const title = screen.getByRole('heading', { name: /spicy arrabiata penne/i });
       expect(title).toBeInTheDocument();
     });
@@ -117,7 +115,7 @@ describe('Testa a página de receitas em Progresso com uma receita de /meal/', (
     );
 
     await waitFor(() => {
-      history.push('/meals/52771/in-progress');
+      history.push(historyPush);
 
       const title = screen.getByRole('heading', { name: /spicy arrabiata penne/i });
       expect(title).toBeInTheDocument();
@@ -142,12 +140,12 @@ describe('Testa a página de receitas em Progresso com uma receita de /meal/', (
     );
 
     act(() => {
-      history.push('/meals/52771/in-progress');
+      history.push(historyPush);
     });
 
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/meals/52771/in-progress');
-      const title = screen.getByTestId('0-ingredient-name-and-measure');
+      expect(history.location.pathname).toBe(historyPush);
+      const title = screen.getByTestId(ingredient0);
       expect(title).toBeInTheDocument();
     });
 
@@ -200,7 +198,7 @@ describe('Testa a página de receitas em Progresso com uma receita de /meal/', (
     );
 
     await waitFor(() => {
-      history.push('/meals/52771/in-progress');
+      history.push(historyPush);
       const title = screen.getByRole('heading', { name: /spicy arrabiata penne/i });
       expect(title).toBeInTheDocument();
     });
@@ -218,16 +216,16 @@ describe('Testa a página de receitas em Progresso com uma receita de /meal/', (
     );
 
     act(() => {
-      history.push('/meals/52771/in-progress');
+      history.push(historyPush);
     });
 
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/meals/52771/in-progress');
-      const title = screen.getByTestId('0-ingredient-name-and-measure');
+      expect(history.location.pathname).toBe(historyPush);
+      const title = screen.getByTestId(ingredient0);
       expect(title).toBeInTheDocument();
     });
 
-    const checkbox0 = screen.getByTestId('0-ingredient-name-and-measure');
+    const checkbox0 = screen.getByTestId(ingredient0);
     const checkbox1 = screen.getByTestId('1-ingredient-name-and-measure');
     const checkbox2 = screen.getByTestId('2-ingredient-name-and-measure');
     const checkbox3 = screen.getByTestId('3-ingredient-name-and-measure');
@@ -258,12 +256,12 @@ describe('Testa a página de receitas em Progresso com uma receita de /meal/', (
     );
 
     act(() => {
-      history.push('/meals/52771/in-progress');
+      history.push(historyPush);
     });
 
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/meals/52771/in-progress');
-      const title = screen.getByTestId('0-ingredient-name-and-measure');
+      expect(history.location.pathname).toBe(historyPush);
+      const title = screen.getByTestId(ingredient0);
       expect(title).toBeInTheDocument();
     });
 

@@ -17,6 +17,8 @@ const fetchResolved = (data) => () => new Promise((resolve) => {
   });
 });
 
+const historyPush = '/drinks/178319/in-progress';
+
 describe('Testa a página de receitas em Progresso com uma receita de /drink/', () => {
   const mockFavorite = [
     {
@@ -49,7 +51,7 @@ describe('Testa a página de receitas em Progresso com uma receita de /drink/', 
     );
 
     await waitFor(() => {
-      history.push('/drinks/178319/in-progress');
+      history.push(historyPush);
       const title = screen.getByRole('heading', { name: /aquamarine/i });
       expect(title).toBeInTheDocument();
     });
@@ -68,7 +70,7 @@ describe('Testa a página de receitas em Progresso com uma receita de /drink/', 
       </SearchBarProvider>,
     );
     await waitFor(() => {
-      history.push('/drinks/178319/in-progress');
+      history.push(historyPush);
       const title = screen.getByRole('heading', { name: /aquamarine/i });
       expect(title).toBeInTheDocument();
     });
@@ -101,7 +103,7 @@ describe('Testa a página de receitas em Progresso com uma receita de /drink/', 
     );
 
     await waitFor(() => {
-      history.push('/drinks/178319/in-progress');
+      history.push(historyPush);
       const title = screen.getByRole('heading', { name: /aquamarine/i });
       expect(title).toBeInTheDocument();
     });
@@ -135,11 +137,11 @@ describe('Testa a página de receitas em Progresso com uma receita de /drink/', 
     );
 
     act(() => {
-      history.push('/drinks/178319/in-progress');
+      history.push(historyPush);
     });
 
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/drinks/178319/in-progress');
+      expect(history.location.pathname).toBe(historyPush);
       const title = screen.getByTestId('0-ingredient-name-and-measure');
       expect(title).toBeInTheDocument();
     });
