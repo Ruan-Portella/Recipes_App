@@ -90,7 +90,7 @@ function RecipeInProgress() {
     callGetRecipes();
     if (ingredients.length === selectedItems.length) {
       setFinishRecipe(true);
-    } else if (ingredients.length !== selectedItems.length) {
+    } else {
       setFinishRecipe(false);
     }
   });
@@ -173,6 +173,7 @@ function RecipeInProgress() {
                 data-testid={ `${index}-ingredient-name-and-measure` }
               >
                 <input
+                  data-testid={ `${index}-ingredient` }
                   type="checkbox"
                   id={ recipeDetails[`id${mealOrDrink}`] }
                   name={ ingredient.ingredient }

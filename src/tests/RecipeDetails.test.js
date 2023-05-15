@@ -19,7 +19,7 @@ beforeEach(() => {
 const URL_MEALS = '/meals/52973';
 
 describe('', () => {
-  test.skip('', async () => {
+  test('', async () => {
     const { history } = renderWithRouter(
       <SearchBarProvider>
         <RecipeDetailsProvider>
