@@ -1,15 +1,22 @@
 import { Link } from 'react-router-dom';
-import drinkIcon from '../images/drinkIcon.svg';
-import mealIcon from '../images/mealIcon.svg';
+import { ImCheckmark, ImSpoonKnife, ImHeart } from 'react-icons/im';
+import { BiDrink } from 'react-icons/bi';
+import '../styles/Footer.css';
 
 function Footer() {
   return (
-    <footer data-testid="footer">
+    <footer data-testid="footer" className="footer-container">
       <Link to="/drinks">
-        <img data-testid="drinks-bottom-btn" alt="drinkIcon" src={ drinkIcon } />
+        <BiDrink size={ 30 } color="white" />
       </Link>
       <Link to="/meals">
-        <img data-testid="meals-bottom-btn" alt="mealIcon" src={ mealIcon } />
+        <ImSpoonKnife size={ 30 } color="white" />
+      </Link>
+      <Link to="favorite-recipes">
+        <ImHeart size={ 30 } color="white" />
+      </Link>
+      <Link to="/done-recipes">
+        <ImCheckmark size={ 30 } color="white" />
       </Link>
     </footer>
   );

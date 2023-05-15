@@ -1,30 +1,27 @@
-import { AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineUser } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import iRecipes from '../images/iRecipes.svg';
+import '../styles/Header.css';
 import SearchBar from './SearchBar';
 
 function Header({ title, icons }) {
-  const [isEnable, setIsEnable] = useState(false);
   return (
     <header>
-      {icons && (
-        <i
-          data-testid="search-top-btn"
-          src="searchIcon"
-        >
-          <button
-            data-testid="search-btn"
-            onClick={ () => setIsEnable(!isEnable) }
-          >
-            <AiOutlineSearch />
-          </button>
-        </i>)}
-      <Link to="/profile">
-        <i data-testid="profile-top-btn" src="profileIcon"><AiOutlineUser /></i>
-      </Link>
+      <section className="header-container">
+        <div>
+          <Link to="/meals">
+            <img className="header-image" src={ iRecipes } alt="iRecipes Logo" />
+          </Link>
+        </div>
+        <div className="header-profile">
+          <Link to="/profile">
+            <AiOutlineUser size={ 25 } color="black" />
+          </Link>
+        </div>
+      </section>
       <h1 data-testid="page-title">{ title }</h1>
-      {isEnable && <SearchBar />}
+      {icons && <SearchBar />}
     </header>
   );
 }
