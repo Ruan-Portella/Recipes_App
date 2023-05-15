@@ -5,7 +5,9 @@ import copy from 'clipboard-copy';
 import RecipeDetailsContext from '../context/RecipeDetailsContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { saveRecipes, getRecipes, removeRecipes } from '../helpers/localStorage';
+import { saveRecipes,
+  getRecipes,
+  removeRecipes, getRecipeInProgress } from '../helpers/localStorage';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -15,10 +17,12 @@ function RecipeDetails() {
   const [alcoholic, setAlcoholic] = useState(false);
   const [shared, setShared] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [recipesInProgress, setRecipesInProgress] = useState(undefined);
   const limitIngredients = 20;
   let ingredients = [];
   let name = 'Meal';
   let recommendName = 'Drink';
+  let nameForInProgress = 'meals';
 
   const settings = {
     dots: true,
@@ -39,6 +43,13 @@ function RecipeDetails() {
   }
 
   useEffect(() => {
+    const getInProgress = getRecipeInProgress();
+    if (getInProgress[nameForInProgress]) {
+      setRecipesInProgress(getInProgress[nameForInProgress][recipeDetails[`id${name}`]]);
+    }
+  }, [recipeDetails]);
+
+  useEffect(() => {
     if (pathname.includes('/drinks')) {
       setAlcoholic(true);
     }
@@ -47,6 +58,7 @@ function RecipeDetails() {
   if (pathname.includes('/drinks')) {
     name = 'Drink';
     recommendName = 'Meal';
+    nameForInProgress = 'drinks';
   }
 
   const shareRecipe = () => {
@@ -174,7 +186,7 @@ function RecipeDetails() {
           className="btn-start-recipe"
           data-testid="start-recipe-btn"
         >
-          Start Recipe
+          {recipesInProgress === undefined ? 'Start Recipe' : 'Continue Recipe'}
         </button>
       </Link>
     </>
