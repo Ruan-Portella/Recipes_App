@@ -6,8 +6,10 @@ import { saveRecipeInProgress,
   getRecipeInProgress,
   saveRecipesFinished,
   saveRecipes, getRecipes, removeRecipes } from '../helpers/localStorage';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+  import { SlHeart } from 'react-icons/sl';
+  import { ImHeart, ImShare2, ImCart } from 'react-icons/im';
+  import '../styles/RecipeDetails.css';
+import Footer from '../components/Footer';
 
 function RecipeInProgress() {
   const { recipeDetails, pathname } = useContext(RecipeInProgressContext);
@@ -122,44 +124,45 @@ function RecipeInProgress() {
   };
 
   return (
-    <section>
-      {
-        shared && <span>Link copied!</span>
-      }
-      <img
-        data-testid="recipe-photo"
-        src={ recipeDetails[`str${mealOrDrink}Thumb`] }
-        alt="Recipe"
-      />
-      <button
-        data-testid="share-btn"
-        onClick={ () => shareRecipe() }
+    <section className="details">
+      <div
+        className="details-img-container"
+        style={ { backgroundImage: `url(${recipeDetails[`str${mealOrDrink}Thumb`]})`,
+          backgroundSize: 'cover' } }
       >
-        Compartilhar
-      </button>
-      <button
-        onClick={ () => (favorite ? unfavoriteRecipe() : favoriteRecipe()) }
-      >
-        {favorite ? (
-          <img
-            data-testid="favorite-btn"
-            src={ blackHeartIcon }
-            alt="favorite"
-          />)
-          : (
-            <img
-              data-testid="favorite-btn"
-              src={ whiteHeartIcon }
-              alt="notfavorited"
-            />
-          ) }
 
-      </button>
-      <h1 data-testid="recipe-title">{recipeDetails[`str${mealOrDrink}`]}</h1>
-      <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
+        {
+          shared && <span>Link copied!</span>
+        }
+      </div>
+      <div className="details-btn-container">
+
+        <h1 data-testid="recipe-title">{recipeDetails[`str${mealOrDrink}`]}</h1>
+        <div className="only-btn">
+
+          <button
+            data-testid="share-btn"
+            onClick={ () => shareRecipe() }
+          >
+            <ImShare2 size={ 30 } color="#00BF63" />
+          </button>
+          <button
+            onClick={ () => (favorite ? unfavoriteRecipe() : favoriteRecipe()) }
+          >
+            {favorite ? (
+              <ImHeart size={ 30 } color="#00BF63" />)
+              : (
+                <SlHeart size={ 30 } color="#00BF63" />
+              ) }
+
+          </button>
+        </div>
+      </div>
+      <div className="details-description">
       {
         alcoholic && <p data-testid="recipe-category">{recipeDetails.strAlcoholic}</p>
       }
+      <h3>Ingredients</h3>
       <ul>
         {
           ingredients.map((ingredient, index) => (
@@ -167,11 +170,13 @@ function RecipeInProgress() {
               data-testid={ `${index}-ingredient-step` }
               key={ ingredient.ingredient + ingredient.measure }
               className={ selectedItems.includes(ingredient.ingredient)
-                ? 'marked' : 'not-marked' }
+                ? 'marked' : 'not-marked'}
             >
               <li
                 data-testid={ `${index}-ingredient-name-and-measure` }
+                className='details-list-inprogress'
               >
+                <div>
                 <input
                   data-testid={ `${index}-ingredient` }
                   type="checkbox"
@@ -183,6 +188,8 @@ function RecipeInProgress() {
                 <span>
                   {ingredient.ingredient}
                 </span>
+                <span> - </span>
+                </div>
                 <span>
                   {ingredient.measure}
                 </span>
@@ -200,6 +207,8 @@ function RecipeInProgress() {
       >
         Finish Recipe
       </button>
+      </div>
+      <Footer />
     </section>
   );
 }

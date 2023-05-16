@@ -12,7 +12,7 @@ function Footer() {
       <Link to="/meals">
         <ImSpoonKnife size={ 30 } color="white" />
       </Link>
-      <Link to="favorite-recipes">
+      <Link to="/favorite-recipes">
         <ImHeart size={ 30 } color="white" />
       </Link>
       <Link to="/done-recipes">

@@ -4,12 +4,6 @@ footer {
   position: fixed;
 }
 
-.btn-start-recipe {
-  bottom: 0;
-  display: flex;
-  position: fixed;
-}
-
 .marked {
   text-decoration: line-through solid black;
 }
