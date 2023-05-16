@@ -1,0 +1,157 @@
+/* stylelint-disable property-no-vendor-prefix */
+
+/* stylelint-disable declaration-bang-space-after */
+
+/* stylelint-disable declaration-no-important */
+label {
+  margin: 0;
+  padding: 0;
+}
+
+.form-container {
+  align-items: center;
+  background-image: url('../images/Wave.svg');
+  background-position: bottom;
+  background-size: cover;
+  display: flex;
+  flex-wrap: row wrap;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.container-right {
+  display: flex;
+  justify-content: center;
+  width: 50vw;
+}
+
+.container-right img {
+  width: 80%;
+}
+
+.container-left {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  width: 50vw;
+}
+
+.container-image {
+  width: 80%;
+}
+
+.container-image img {
+  width: 200px;
+}
+
+.container-title {
+  width: 60%;
+}
+
+.container-title p {
+  color: black;
+  font-weight: 500;
+}
+
+.container-left label {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
+
+.container-left label input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  color: black;
+  margin-left: 10px;
+  outline: none;
+  padding: 10px 20px;
+  text-decoration: none;
+  width: 50%;
+}
+
+.container-left button {
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+  border-style: none;
+  color: black;
+  display: flex;
+  gap: 10px;
+  justify-content: space-evenly;
+  padding: 5px 70px;
+  transition: 0.3s ease-in-out;
+}
+
+.container-left button:hover {
+  background-color: rgb(12, 12, 12);
+  color: white;
+  cursor: pointer;
+}
+
+.container-left button span {
+  font-size: 20px;
+
+}
+
+
+@media only screen and ( max-width : 768px ) {
+
+  .form-container {
+    flex-direction: column;
+  }
+
+  .container-right {
+    display: none;
+  }
+
+
+  .container-image img {
+    width: 250px;
+  }
+
+  .container-title {
+    width: 90%;
+  }
+
+  .container-title p {
+    margin-top: 40px;
+  }
+
+  .container-image {
+    width: 100%;
+  }
+
+  .container-left {
+    height: 50vh;
+    width: 60vw;
+  }
+
+  .container-left label {
+    width: 100%;
+  }
+
+  .container-left label input {
+    width: 100%;
+  }
+}
+
+
+@media only screen and ( max-width : 430px ) {
+
+  .container-left {
+    width: 90vw;
+  }
+
+  .form-container {
+    background-position: top;
+  }
+
+
+}
+

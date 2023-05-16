@@ -8,45 +8,60 @@ function SearchBarProvider({ children }) {
   const { pathname } = useLocation();
   const [recipesData, setRecipesData] = useState([]);
   const [categoriesData, setCategoriesData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const limitSearch = 12;
   const limitCategory = 5;
 
   const fetchApi = useCallback(async (url) => {
+    setIsLoading(true);
     const response = await fetch(url);
     const dataApi = await response.json();
     if (!dataApi[Object.keys(dataApi)] || dataApi[Object.keys(dataApi)] === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      // setIsLoading(false);
     } else if (dataApi[Object.keys(dataApi)].length <= 1) {
       let id = 'idDrink';
       if (pathname === '/meals') {
         id = 'idMeal';
       }
       history.push(`${pathname}/${(dataApi[Object.keys(dataApi)])[0][id]}`);
+      // setIsLoading(false);
       // window.location.href = `${pathname}/${(dataApi[Object.keys(dataApi)])[0][id]}`;
     } else {
-      return setRecipesData((dataApi[Object.keys(dataApi)]).slice(0, limitSearch));
+      setRecipesData((dataApi[Object.keys(dataApi)]).slice(0, limitSearch));
     }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
   }, [pathname, history]);
 
   const fetchCategory = useCallback(async (url) => {
+    setIsLoading(true);
     const response = await fetch(url);
     const dataCategory = await response.json();
-    return setCategoriesData(
+    setCategoriesData(
       (dataCategory[Object.keys(dataCategory)]).slice(0, limitCategory),
     );
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
   const fetchByCategory = useCallback(async (category) => {
+    setIsLoading(true);
     let URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
     if (pathname === '/drinks') {
       URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
     }
     const response = await fetch(URL);
     const dataCategory = await response.json();
-    return setRecipesData(
+    setRecipesData(
       (dataCategory[Object.keys(dataCategory)]).slice(0, limitSearch),
     );
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, [pathname]);
 
   useEffect(() => {
@@ -86,10 +101,11 @@ function SearchBarProvider({ children }) {
 
   const values = useMemo(() => ({
     searchBtn,
+    isLoading,
     recipesData,
     categoriesData,
     fetchByCategory,
-  }), [searchBtn, recipesData, categoriesData, fetchByCategory]);
+  }), [searchBtn, recipesData, categoriesData, fetchByCategory, isLoading]);
   return (
     <SearchBarContext.Provider value={ values }>
       {children}

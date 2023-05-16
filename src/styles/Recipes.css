@@ -1,0 +1,38 @@
+/* stylelint-disable order/properties-alphabetical-order */
+
+/* stylelint-disable declaration-empty-line-before */
+
+/* stylelint-disable value-no-vendor-prefix */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 180px;
+}
+
+.card-name {
+  bottom: 0;
+  display: flex;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-content {
+  background-color: #00000091;
+  color: white;
+  font-weight: 700;
+  height: 55px;
+  width: 100%;
+
+}
+
+.card-content > p {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin-top: 10px;
+}

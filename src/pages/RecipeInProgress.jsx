@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
+import { SlHeart } from 'react-icons/sl';
+import { ImHeart, ImShare2 } from 'react-icons/im';
 import RecipeInProgressContext from '../context/RecipeInProgressContext';
 import { saveRecipeInProgress,
   getRecipeInProgress,
   saveRecipesFinished,
   saveRecipes, getRecipes, removeRecipes } from '../helpers/localStorage';
-  import { SlHeart } from 'react-icons/sl';
-  import { ImHeart, ImShare2, ImCart } from 'react-icons/im';
-  import '../styles/RecipeDetails.css';
+import '../styles/RecipeDetails.css';
 import Footer from '../components/Footer';
 
 function RecipeInProgress() {
@@ -130,7 +130,7 @@ function RecipeInProgress() {
         style={ { backgroundImage: `url(${recipeDetails[`str${mealOrDrink}Thumb`]})`,
           backgroundSize: 'cover' } }
       >
-
+        <div className="grayscale-container" />
         {
           shared && <span>Link copied!</span>
         }
@@ -159,54 +159,54 @@ function RecipeInProgress() {
         </div>
       </div>
       <div className="details-description">
-      {
-        alcoholic && <p data-testid="recipe-category">{recipeDetails.strAlcoholic}</p>
-      }
-      <h3>Ingredients</h3>
-      <ul>
         {
-          ingredients.map((ingredient, index) => (
-            <label
-              data-testid={ `${index}-ingredient-step` }
-              key={ ingredient.ingredient + ingredient.measure }
-              className={ selectedItems.includes(ingredient.ingredient)
-                ? 'marked' : 'not-marked'}
-            >
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                className='details-list-inprogress'
-              >
-                <div>
-                <input
-                  data-testid={ `${index}-ingredient` }
-                  type="checkbox"
-                  id={ recipeDetails[`id${mealOrDrink}`] }
-                  name={ ingredient.ingredient }
-                  checked={ selectedItems.includes(ingredient.ingredient) }
-                  onChange={ (event) => handleCheckboxChange(event) }
-                />
-                <span>
-                  {ingredient.ingredient}
-                </span>
-                <span> - </span>
-                </div>
-                <span>
-                  {ingredient.measure}
-                </span>
-              </li>
-            </label>
-          ))
+          alcoholic && <p data-testid="recipe-category">{recipeDetails.strAlcoholic}</p>
         }
-      </ul>
-      <span data-testid="instructions">{recipeDetails.strInstructions}</span>
-      <button
-        onClick={ clickFinishRecipe }
-        disabled={ !finishRecipe }
-        className="btn-finish-recipe"
-        data-testid="finish-recipe-btn"
-      >
-        Finish Recipe
-      </button>
+        <h3>Ingredients</h3>
+        <ul>
+          {
+            ingredients.map((ingredient, index) => (
+              <label
+                data-testid={ `${index}-ingredient-step` }
+                key={ ingredient.ingredient + ingredient.measure }
+                className={ selectedItems.includes(ingredient.ingredient)
+                  ? 'marked' : 'not-marked' }
+              >
+                <li
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  className="details-list-inprogress"
+                >
+
+                  <input
+                    data-testid={ `${index}-ingredient` }
+                    type="checkbox"
+                    id={ recipeDetails[`id${mealOrDrink}`] }
+                    name={ ingredient.ingredient + index } // Alteração teste - adicionado o index para evitar problemas com receitas que repitam ingredientes (sushi)
+                    checked={ selectedItems.includes(ingredient.ingredient + index) }
+                    onChange={ (event) => handleCheckboxChange(event) }
+                  />
+                &nbsp;&nbsp;
+                  <span>
+                    {`${ingredient.ingredient} - ${ingredient.measure}`}
+                  </span>
+
+                </li>
+              </label>
+            ))
+          }
+        </ul>
+        <h3>How to make</h3>
+        <p data-testid="instructions">{recipeDetails.strInstructions}</p>
+        <div className="details-btn">
+          <button
+            onClick={ clickFinishRecipe }
+            disabled={ !finishRecipe }
+            className="btn-finish-recipe"
+            data-testid="finish-recipe-btn"
+          >
+            Finish Recipe
+          </button>
+        </div>
       </div>
       <Footer />
     </section>

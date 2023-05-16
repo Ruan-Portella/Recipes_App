@@ -47,6 +47,7 @@ function RecipeDetails() {
   useEffect(() => {
     const getInProgress = getRecipeInProgress();
     if (getInProgress[nameForInProgress]) {
+      console.log(getInProgress[nameForInProgress][recipeDetails[`id${name}`]]);
       setRecipesInProgress(getInProgress[nameForInProgress][recipeDetails[`id${name}`]]);
     }
   }, [recipeDetails]);
@@ -106,11 +107,11 @@ function RecipeDetails() {
         className="details-img-container"
         style={ { backgroundImage: `url(${recipeDetails[`str${name}Thumb`]})`,
           backgroundSize: 'cover' } }
-          >
-        <div className='grayscale-container'>
-        {
-          shared && <span>Link copied!</span>
-        }
+      >
+        <div className="grayscale-container">
+          {
+            shared && <span>Link copied!</span>
+          }
         </div>
       </div>
       <div className="details-btn-container">
@@ -154,9 +155,8 @@ function RecipeDetails() {
                 <span>
                   <ImCart color="#00BF63" />
 &nbsp;&nbsp;
-                  {ingredient.ingredient}
+                  {`${ingredient.ingredient} - ${ingredient.measure}`}
                 </span>
-                <span>{ingredient.measure}</span>
               </li>
             ))
           }

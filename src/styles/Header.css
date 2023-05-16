@@ -8,3 +8,9 @@
 .header-image {
   height: 20%;
 }
+
+.searchBar-container {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
