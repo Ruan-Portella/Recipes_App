@@ -57,6 +57,120 @@ ul {
   width: 60vw;
 }
 
+.loading-container {
+  align-items: center;
+  display: flex;
+  height: 60vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.Loading {
+  animation: round 1.8s linear infinite;
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+}
+
+.loading1:after {
+  background: #00bf63;
+  border-radius: 50%;
+  bottom: 3px;
+  content: '';
+  height: 6px;
+  position: absolute;
+  width: 6px;
+}
+
+
+.loading2:after {
+  background: #00bf63;
+  border-radius: 50%;
+  bottom: 28px;
+  content: '';
+  height: 8px;
+  left: -8px;
+  position: absolute;
+  width: 8px;
+}
+
+.loading3:after {
+  background: #00bf63;
+  border-radius: 50%;
+  content: '';
+  height: 10px;
+  position: absolute;
+  top: 3px;
+  width: 10px;
+}
+
+.loading4:after {
+  background: #00bf63;
+  border-radius: 50%;
+  bottom: 67px;
+  content: '';
+  height: 12px;
+  left: 24px;
+  position: absolute;
+  width: 12px;
+}
+
+.loading5:after {
+  background: #00bf63;
+  border-radius: 50%;
+  content: '';
+  height: 14px;
+  position: absolute;
+  right: 3px;
+  width: 14px;
+}
+
+.loading6:after {
+  background: #00bf63;
+  border-radius: 50%;
+  bottom: 28px;
+  content: '';
+  height: 16px;
+  left: 63px;
+  position: absolute;
+  width: 16px;
+}
+
+
+.loading7:after {
+  background: #00bf63;
+  border-radius: 50%;
+  bottom: 0;
+  content: '';
+  height: 18px;
+  left: 55px;
+  position: absolute;
+  width: 18px;
+}
+
+
+.loading8:after {
+  background: #00bf63;
+  border-radius: 50%;
+  bottom: -12px;
+  content: '';
+  height: 20px;
+  left: 24px;
+  position: absolute;
+  width: 20px;
+}
+
+@keyframes round {
+
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
 @media only screen and ( max-width : 430px ) {
 
   .categoriesButton {

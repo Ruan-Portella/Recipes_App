@@ -45,6 +45,7 @@ function RecipeDetails() {
   useEffect(() => {
     const getInProgress = getRecipeInProgress();
     if (getInProgress[nameForInProgress]) {
+      console.log(getInProgress[nameForInProgress][recipeDetails[`id${name}`]]);
       setRecipesInProgress(getInProgress[nameForInProgress][recipeDetails[`id${name}`]]);
     }
   }, [recipeDetails]);

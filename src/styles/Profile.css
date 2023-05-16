@@ -27,9 +27,16 @@
   cursor: pointer;
   height: 30px;
   transition: 0.3s ease-in-out;
-  width: 15%;
+  width: 17%;
 }
 
 .profile-container button:hover {
   background-color: black;
+}
+
+@media only screen and ( max-width : 768px ) {
+
+  .profile-container button {
+    width: 40%;
+  }
 }
