@@ -28,11 +28,24 @@ function RecipeDetails() {
 
   const settings = {
     dots: true,
-    arrows: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 4,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+        }
+      },
+    ]
   };
 
   for (let index = 1; index <= limitIngredients; index += 1) {
@@ -138,6 +151,8 @@ function RecipeDetails() {
         </div>
       </div>
       <div className="details-description">
+        <div className='sub-details'>
+        <div className='ingredients-and-image'>
 
         <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
         {
@@ -161,6 +176,9 @@ function RecipeDetails() {
             ))
           }
         </ul>
+          </div>
+        <img src={recipeDetails[`str${name}Thumb`]} alt={recipeDetails[`str${name}Thumb`]} />
+        </div>
         <h3>How to make</h3>
         <p data-testid="instructions">{recipeDetails.strInstructions}</p>
         {

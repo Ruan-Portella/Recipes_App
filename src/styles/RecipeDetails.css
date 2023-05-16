@@ -55,7 +55,13 @@
 }
 
 .slider-image {
-  width: 88vw;
+  width: 20vw;
+}
+
+@media only screen and (max-width: 600px) {
+  .slider-image {
+    width: 88vw;
+  }
 }
 
 .slider {
@@ -88,6 +94,10 @@
   width: 200px;
 }
 
+.details-list{
+  list-style-type: none;
+}
+
 .details-list-inprogress {
   align-items: center;
   display: flex;
@@ -114,6 +124,7 @@ input[type="checkbox"],input[type="radio"]{
   width: 20px;
 }
 
+
 input[type="checkbox"]:checked,input[type="radio"]:checked {
   background-color: #00bf63;
 }
@@ -124,4 +135,25 @@ input[type="radio"]{
 
 button:disabled {
   background-color: hsla(151, 100%, 37%, 0.5);
+}
+
+.slick-arrow {
+  color: black;
+}
+
+@media only screen and (max-width: 1024px) {
+  .sub-details > img{
+    display: none;
+  }
+}
+
+.sub-details {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sub-details > img {
+  max-width: 400px;
+  border-radius: 5px;
 }
