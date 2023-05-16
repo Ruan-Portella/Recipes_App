@@ -14,7 +14,7 @@ function Meals() {
     <>
       <Header title="Meals" icons />
       {
-        !isLoading ? (
+        isLoading ? (
           <section className="loading-container">
             <div className="Loading">
               <div className="loading1" />
