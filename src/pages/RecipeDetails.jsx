@@ -2,14 +2,16 @@ import { useContext, useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import { SlHeart } from 'react-icons/sl';
+import { ImHeart, ImShare2, ImCart } from 'react-icons/im';
 import RecipeDetailsContext from '../context/RecipeDetailsContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { saveRecipes,
   getRecipes,
   removeRecipes, getRecipeInProgress } from '../helpers/localStorage';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../styles/RecipeDetails.css';
+import Footer from '../components/Footer';
 
 function RecipeDetails() {
   const { recipeDetails, pathname,
@@ -99,78 +101,95 @@ function RecipeDetails() {
   };
 
   return (
-    <>
-      <section>
-        {
-          shared && <span>Link copied!</span>
-        }
-        <img
-          data-testid="recipe-photo"
-          src={ recipeDetails[`str${name}Thumb`] }
-          alt="Recipe"
-        />
-        <button
-          data-testid="share-btn"
-          onClick={ () => shareRecipe() }
-        >
-          Compartilhar
-        </button>
-        <button
-          onClick={ () => (favorite ? unfavoriteRecipe() : favoriteRecipe()) }
-        >
-          {favorite ? (
-            <img
-              data-testid="favorite-btn"
-              src={ blackHeartIcon }
-              alt="favorite"
-            />)
-            : (
-              <img
-                data-testid="favorite-btn"
-                src={ whiteHeartIcon }
-                alt="notfavorited"
-              />
-            ) }
+    <section className="details">
 
-        </button>
+      <div
+        className="details-img-container"
+        style={ { backgroundImage: `url(${recipeDetails[`str${name}Thumb`]})`,
+          backgroundSize: 'cover' } }
+      >
+        <div className="grayscale-container">
+          {
+            shared && <span>Link copied!</span>
+          }
+        </div>
+      </div>
+      <div className="details-btn-container">
+
         <h1 data-testid="recipe-title">{recipeDetails[`str${name}`]}</h1>
+        <div className="only-btn">
+
+          <button
+            data-testid="share-btn"
+            onClick={ () => shareRecipe() }
+          >
+            <ImShare2 size={ 30 } color="#00BF63" />
+          </button>
+          <button
+            onClick={ () => (favorite ? unfavoriteRecipe() : favoriteRecipe()) }
+          >
+            {favorite ? (
+              <ImHeart size={ 30 } color="#00BF63" />)
+              : (
+                <SlHeart size={ 30 } color="#00BF63" />
+              ) }
+
+          </button>
+        </div>
+      </div>
+      <div className="details-description">
+
         <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
         {
           alcoholic && <p data-testid="recipe-category">{recipeDetails.strAlcoholic}</p>
         }
+        <h3>Ingredients</h3>
         <ul>
           {
             ingredients.map((ingredient, index) => (
               <li
+                className="details-list"
                 data-testid={ `${index}-ingredient-name-and-measure` }
                 key={ ingredient.ingredient }
               >
-                <span>{ingredient.ingredient}</span>
-                <span>{ingredient.measure}</span>
+                <span>
+                  <ImCart color="#00BF63" />
+&nbsp;&nbsp;
+                  {`${ingredient.ingredient} - ${ingredient.measure}`}
+                </span>
               </li>
             ))
           }
         </ul>
-        <span data-testid="instructions">{recipeDetails.strInstructions}</span>
+        <h3>How to make</h3>
+        <p data-testid="instructions">{recipeDetails.strInstructions}</p>
         {
 
-          !alcoholic && <iframe
-            data-testid="video"
-            width="420"
-            height="315"
-            src={ `https://www.youtube.com/embed/${`${recipeDetails.strYoutube}`.split('v=')[1]}` }
-            title="video"
-          />
+          !alcoholic ? (
+            <>
+              <h3>Video</h3>
+              <iframe
+                className="details-video"
+                data-testid="video"
+                src={ `https://www.youtube.com/embed/${`${recipeDetails.strYoutube}`.split('v=')[1]}` }
+                title="video"
+              />
+            </>) : null
         }
+        <h3>Recommendations</h3>
         {
           recipeRecommend.length > 0 && (
-            <Slider { ...settings }>
+            <Slider { ...settings } className="slider">
               {recipeRecommend.map((recommmend, index) => (
                 <div
                   key={ `id${recommendName}` }
                   data-testid={ `${index}-recommendation-card` }
                 >
-                  <img src={ recommmend[`str${recommendName}Thumb`] } alt="ThumbNail" />
+                  <img
+                    src={ recommmend[`str${recommendName}Thumb`] }
+                    alt="ThumbNail"
+                    className="slider-image"
+                  />
                   <span
                     data-testid={ `${index}-recommendation-title` }
                   >
@@ -181,16 +200,19 @@ function RecipeDetails() {
             </Slider>
           )
         }
-      </section>
-      <Link to={ { pathname: `${pathname}/in-progress`, state: recipeDetails } }>
-        <button
-          className="btn-start-recipe"
-          data-testid="start-recipe-btn"
-        >
-          {recipesInProgress === undefined ? 'Start Recipe' : 'Continue Recipe'}
-        </button>
-      </Link>
-    </>
+        <div className="details-btn">
+          <Link to={ { pathname: `${pathname}/in-progress`, state: recipeDetails } }>
+            <button
+              className="btn-start-recipe"
+              data-testid="start-recipe-btn"
+            >
+              {recipesInProgress === undefined ? 'Start Recipe' : 'Continue Recipe'}
+            </button>
+          </Link>
+        </div>
+      </div>
+      <Footer />
+    </section>
   );
 }
 

@@ -53,8 +53,8 @@ function Footer() {
       <Link to="/drinks">
         <BiDrink size={ 30 } color={ drinks ? 'black' : 'white' } />
       </Link>
-      <Link to="favorite-recipes">
-        <ImHeart size={ 30 } color={ favorite ? 'black' : 'white' } />
+      <Link to="/favorite-recipes">
+        <ImHeart size={ 30 } color="white" />
       </Link>
       <Link to="/done-recipes">
         <ImCheckmark size={ 30 } color={ done ? 'black' : 'white' } />

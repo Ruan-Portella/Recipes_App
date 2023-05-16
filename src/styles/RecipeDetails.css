@@ -1,0 +1,127 @@
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-img-container {
+  height: 40vh;
+  position: absolute;
+  width: 100vw;
+}
+
+.details-btn-container {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+  justify-content: center;
+  position: relative;
+}
+
+.only-btn {
+  align-self: flex-end;
+  bottom: 1rem;
+  position: absolute;
+  right: 0;
+}
+
+.only-btn > button {
+  background-color: transparent;
+  border: none;
+  margin: 1rem;
+}
+
+.details-description {
+  background-color: white;
+  border-top-left-radius: 2em 2em;
+  border-top-right-radius: 2em 2em;
+  margin-top: -30px;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  padding-top: 0.5rem;
+  position: relative;
+  white-space: break-spaces;
+}
+
+.details-description > ul {
+  padding-inline-start: 0;
+}
+
+.details-video {
+  height: 70vw;
+  width: 88vw;
+}
+
+.slider-image {
+  width: 88vw;
+}
+
+.slider {
+  text-align: center;
+}
+
+.details-btn {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+  margin-top: 40px;
+}
+
+.btn-start-recipe {
+  background-color: #00bf63;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  height: 38px;
+  width: 200px;
+}
+
+.btn-finish-recipe {
+  background-color: #00bf63;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  height: 38px;
+  width: 200px;
+}
+
+.details-list-inprogress {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.grayscale-container {
+  background: linear-gradient(to top, #111111c5 25%, transparent 70%);
+  height: inherit;
+  width: inherit;
+}
+
+.details-btn-container > h1 {
+  color: white;
+}
+
+input[type="checkbox"],input[type="radio"]{
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: solid 1px #00bf63;
+  border-radius: 5px;
+  height: 20px;
+  width: 20px;
+}
+
+input[type="checkbox"]:checked,input[type="radio"]:checked {
+  background-color: #00bf63;
+}
+
+input[type="radio"]{
+  border-radius: 50%;
+}
+
+button:disabled {
+  background-color: hsla(151, 100%, 37%, 0.5);
+}

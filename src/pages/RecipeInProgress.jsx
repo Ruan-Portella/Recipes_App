@@ -1,13 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
+import { SlHeart } from 'react-icons/sl';
+import { ImHeart, ImShare2 } from 'react-icons/im';
 import RecipeInProgressContext from '../context/RecipeInProgressContext';
 import { saveRecipeInProgress,
   getRecipeInProgress,
   saveRecipesFinished,
   saveRecipes, getRecipes, removeRecipes } from '../helpers/localStorage';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../styles/RecipeDetails.css';
+import Footer from '../components/Footer';
 
 function RecipeInProgress() {
   const { recipeDetails, pathname } = useContext(RecipeInProgressContext);
@@ -122,84 +124,91 @@ function RecipeInProgress() {
   };
 
   return (
-    <section>
-      {
-        shared && <span>Link copied!</span>
-      }
-      <img
-        data-testid="recipe-photo"
-        src={ recipeDetails[`str${mealOrDrink}Thumb`] }
-        alt="Recipe"
-      />
-      <button
-        data-testid="share-btn"
-        onClick={ () => shareRecipe() }
+    <section className="details">
+      <div
+        className="details-img-container"
+        style={ { backgroundImage: `url(${recipeDetails[`str${mealOrDrink}Thumb`]})`,
+          backgroundSize: 'cover' } }
       >
-        Compartilhar
-      </button>
-      <button
-        onClick={ () => (favorite ? unfavoriteRecipe() : favoriteRecipe()) }
-      >
-        {favorite ? (
-          <img
-            data-testid="favorite-btn"
-            src={ blackHeartIcon }
-            alt="favorite"
-          />)
-          : (
-            <img
-              data-testid="favorite-btn"
-              src={ whiteHeartIcon }
-              alt="notfavorited"
-            />
-          ) }
-
-      </button>
-      <h1 data-testid="recipe-title">{recipeDetails[`str${mealOrDrink}`]}</h1>
-      <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
-      {
-        alcoholic && <p data-testid="recipe-category">{recipeDetails.strAlcoholic}</p>
-      }
-      <ul>
+        <div className="grayscale-container" />
         {
-          ingredients.map((ingredient, index) => (
-            <label
-              data-testid={ `${index}-ingredient-step` }
-              key={ ingredient.ingredient + ingredient.measure }
-              className={ selectedItems.includes(ingredient.ingredient)
-                ? 'marked' : 'not-marked' }
-            >
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                <input
-                  data-testid={ `${index}-ingredient` }
-                  type="checkbox"
-                  id={ recipeDetails[`id${mealOrDrink}`] }
-                  name={ ingredient.ingredient }
-                  checked={ selectedItems.includes(ingredient.ingredient) }
-                  onChange={ (event) => handleCheckboxChange(event) }
-                />
-                <span>
-                  {ingredient.ingredient}
-                </span>
-                <span>
-                  {ingredient.measure}
-                </span>
-              </li>
-            </label>
-          ))
+          shared && <span>Link copied!</span>
         }
-      </ul>
-      <span data-testid="instructions">{recipeDetails.strInstructions}</span>
-      <button
-        onClick={ clickFinishRecipe }
-        disabled={ !finishRecipe }
-        className="btn-finish-recipe"
-        data-testid="finish-recipe-btn"
-      >
-        Finish Recipe
-      </button>
+      </div>
+      <div className="details-btn-container">
+
+        <h1 data-testid="recipe-title">{recipeDetails[`str${mealOrDrink}`]}</h1>
+        <div className="only-btn">
+
+          <button
+            data-testid="share-btn"
+            onClick={ () => shareRecipe() }
+          >
+            <ImShare2 size={ 30 } color="#00BF63" />
+          </button>
+          <button
+            onClick={ () => (favorite ? unfavoriteRecipe() : favoriteRecipe()) }
+          >
+            {favorite ? (
+              <ImHeart size={ 30 } color="#00BF63" />)
+              : (
+                <SlHeart size={ 30 } color="#00BF63" />
+              ) }
+
+          </button>
+        </div>
+      </div>
+      <div className="details-description">
+        {
+          alcoholic && <p data-testid="recipe-category">{recipeDetails.strAlcoholic}</p>
+        }
+        <h3>Ingredients</h3>
+        <ul>
+          {
+            ingredients.map((ingredient, index) => (
+              <label
+                data-testid={ `${index}-ingredient-step` }
+                key={ ingredient.ingredient + ingredient.measure }
+                className={ selectedItems.includes(ingredient.ingredient)
+                  ? 'marked' : 'not-marked' }
+              >
+                <li
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  className="details-list-inprogress"
+                >
+
+                  <input
+                    data-testid={ `${index}-ingredient` }
+                    type="checkbox"
+                    id={ recipeDetails[`id${mealOrDrink}`] }
+                    name={ ingredient.ingredient + index } // Alteração teste - adicionado o index para evitar problemas com receitas que repitam ingredientes (sushi)
+                    checked={ selectedItems.includes(ingredient.ingredient + index) }
+                    onChange={ (event) => handleCheckboxChange(event) }
+                  />
+                &nbsp;&nbsp;
+                  <span>
+                    {`${ingredient.ingredient} - ${ingredient.measure}`}
+                  </span>
+
+                </li>
+              </label>
+            ))
+          }
+        </ul>
+        <h3>How to make</h3>
+        <p data-testid="instructions">{recipeDetails.strInstructions}</p>
+        <div className="details-btn">
+          <button
+            onClick={ clickFinishRecipe }
+            disabled={ !finishRecipe }
+            className="btn-finish-recipe"
+            data-testid="finish-recipe-btn"
+          >
+            Finish Recipe
+          </button>
+        </div>
+      </div>
+      <Footer />
     </section>
   );
 }
