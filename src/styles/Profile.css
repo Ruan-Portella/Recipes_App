@@ -1,0 +1,35 @@
+.profile-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 60vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.profile-title {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-container p {
+  background-color: black;
+  border-radius: 20px;
+  color: white;
+  padding: 10px;
+}
+
+.profile-container button {
+  background-color: #00bf63;
+  border: none;
+  color: white;
+  cursor: pointer;
+  height: 30px;
+  transition: 0.3s ease-in-out;
+  width: 15%;
+}
+
+.profile-container button:hover {
+  background-color: black;
+}

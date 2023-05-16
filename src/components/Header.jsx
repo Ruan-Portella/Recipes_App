@@ -5,7 +5,7 @@ import iRecipes from '../images/iRecipes.svg';
 import '../styles/Header.css';
 import SearchBar from './SearchBar';
 
-function Header({ title, icons }) {
+function Header({ icons }) {
   return (
     <header>
       <section className="header-container">
@@ -20,14 +20,12 @@ function Header({ title, icons }) {
           </Link>
         </div>
       </section>
-      <h1 data-testid="page-title">{ title }</h1>
-      {icons && <SearchBar />}
+      {icons && <section className="searchBar-container"><SearchBar /></section>}
     </header>
   );
 }
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
   icons: PropTypes.bool.isRequired,
 };
 
