@@ -1,3 +1,8 @@
+/* stylelint-disable no-descending-specificity */
+
+/* stylelint-disable selector-no-qualifying-type */
+
+/* stylelint-disable declaration-no-important */
 .details {
   display: flex;
   flex-direction: column;
@@ -58,7 +63,12 @@
   width: 20vw;
 }
 
-@media only screen and (max-width: 600px) {
+.slick-next {
+  display: none ! important;
+}
+
+@media only screen and ( max-width : 600px ) {
+
   .slider-image {
     width: 88vw;
   }
@@ -94,7 +104,7 @@
   width: 200px;
 }
 
-.details-list{
+.details-list {
   list-style-type: none;
 }
 
@@ -114,8 +124,7 @@
   color: white;
 }
 
-input[type="checkbox"],input[type="radio"]{
-  -webkit-appearance: none;
+input[ type = 'checkbox' ], input[ type = 'radio' ] {
   appearance: none;
   background-color: transparent;
   border: solid 1px #00bf63;
@@ -125,11 +134,11 @@ input[type="checkbox"],input[type="radio"]{
 }
 
 
-input[type="checkbox"]:checked,input[type="radio"]:checked {
+input[ type = 'checkbox' ]:checked, input[ type = 'radio' ]:checked {
   background-color: #00bf63;
 }
 
-input[type="radio"]{
+input[ type = 'radio' ] {
   border-radius: 50%;
 }
 
@@ -141,8 +150,9 @@ button:disabled {
   color: black;
 }
 
-@media only screen and (max-width: 1024px) {
-  .sub-details > img{
+@media only screen and ( max-width : 1024px ) {
+
+  .sub-details > img {
     display: none;
   }
 }
@@ -154,6 +164,6 @@ button:disabled {
 }
 
 .sub-details > img {
-  max-width: 400px;
   border-radius: 5px;
+  max-width: 400px;
 }

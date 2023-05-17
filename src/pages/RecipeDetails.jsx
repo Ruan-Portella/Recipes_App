@@ -162,12 +162,13 @@ function RecipeDetails() {
             </p>
             {
               alcoholic
-              && <p
-                data-testid="recipe-category"
-              >
-                {recipeDetails.strAlcoholic}
+              && (
+                <p
+                  data-testid="recipe-category"
+                >
+                  {recipeDetails.strAlcoholic}
 
-                 </p>
+                </p>)
             }
             <h3>Ingredients</h3>
             <ul>
@@ -180,7 +181,6 @@ function RecipeDetails() {
                   >
                     <span>
                       <ImCart color="#00BF63" />
-&nbsp;&nbsp;
                       {`${ingredient.ingredient} - ${ingredient.measure}`}
                     </span>
                   </li>
@@ -247,5 +247,4 @@ function RecipeDetails() {
     </section>
   );
 }
-
 export default RecipeDetails;

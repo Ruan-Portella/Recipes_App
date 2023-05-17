@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsCheck } from 'react-icons/bs';
@@ -90,6 +91,11 @@ function DoneRecipes() {
   return (
     <>
       <Header title="Done Recipes" icons={ false } />
+      <div className="content-trending">
+        <div className="title">
+          Receitas Concluídas
+        </div>
+      </div>
       <section className="categoriesButton">
         <div className="content-categories">
           <button
