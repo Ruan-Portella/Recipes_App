@@ -1,0 +1,100 @@
+ul {
+    margin: 0;
+    padding: 0;
+  }
+
+img {
+    max-width: 280px;
+    border-radius: 5px;
+}
+
+.categoriesButton {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100vw;
+}
+.content-categories {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .content-categories button {
+    background-color: white;
+    border-radius: 20px;
+    border-style: none;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+  }
+  
+  .recipe-containe {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10vh;
+    width: 100vw;
+  }
+  
+  .recipe-containe ul {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 60vw;
+    list-style-type: none;
+  }
+  .card-containe {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 280px;
+  }
+  
+  .card-nome {
+    background-color: #00000091;
+    bottom: 0;
+    display: flex;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .card-contente {
+    display: flex;
+    color: white;
+    font-weight: 700;
+    height: 100%;
+    width: 40%;
+    justify-content: baseline;
+    text-align: left;
+  }
+  
+  .card-contente > p {
+    overflow: hidden;
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  .card-contente > button {
+    margin-top: 5px;
+    background-color: transparent;
+  }
+  
+  .content-trending {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100vw;
+  }
+  
+  .title {
+    margin-left: 30px;
+  }
