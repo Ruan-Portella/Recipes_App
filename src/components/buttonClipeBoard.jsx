@@ -1,10 +1,11 @@
 import React from 'react';
 import copy from 'clipboard-copy';
 import { ImShare2 } from 'react-icons/im';
+import '../styles/FavoriteRecipes.css';
 // import shareIcon from '../images/shareIcon.svg';
 
 const buttonClipeBoard = (type, id, recipeIndex, { state }) => (
-  <div>
+  <div className="card-contente">
     <button
       onClick={ () => {
         copy(`http://localhost:3000/${type}s/${id}`);

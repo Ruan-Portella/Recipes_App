@@ -9,7 +9,7 @@ import all from '../images/all.svg';
 import category0 from '../images/beef.svg';
 import drink0 from '../images/ordinary.svg';
 import '../styles/FavoriteRecipes.css';
-// import Footer from '../components/Footer';
+import Footer from '../components/Footer';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -138,7 +138,10 @@ function FavoriteRecipes() {
                         onClick={ () => (favorite && unfavoriteRecipe(recipe.id)) }
                       >
                         {favorite && (
-                          <ImHeart size={ 30 } color="#00BF63" />)}
+                          <ImHeart
+                            size={ 30 }
+                            color="#00BF63"
+                          />)}
                       </button>
                     </div>
                   </div>
@@ -148,7 +151,7 @@ function FavoriteRecipes() {
           }
         </ul>
       </section>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

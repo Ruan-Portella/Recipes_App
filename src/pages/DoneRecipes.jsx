@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import buttonClipeBoard from '../components/buttonClipeBoard';
 import Header from '../components/Header';
+import '../styles/FavoriteRecipes.css';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -82,83 +83,94 @@ function DoneRecipes() {
   };
 
   return (
-    <section>
+    <>
       <Header title="Done Recipes" icons={ false } />
-      <div>
-        <button
-          data-testid="filter-by-all-btn"
-          onClick={ () => FilterRecipes('all') }
-        >
-          All
-        </button>
-        <button
-          data-testid="filter-by-meal-btn"
-          onClick={ () => FilterRecipes('meals') }
-        >
-          Meals
-        </button>
-        <button
-          data-testid="filter-by-drink-btn"
-          onClick={ () => FilterRecipes('drinks') }
-        >
-          Drinks
-        </button>
+      <section className="categoriesButton">
+        <div className="content-categories">
+          <button
+            data-testid="filter-by-all-btn"
+            onClick={ () => FilterRecipes('all') }
+          >
+            All
+          </button>
+          <button
+            data-testid="filter-by-meal-btn"
+            onClick={ () => FilterRecipes('meals') }
+          >
+            Meals
+          </button>
+          <button
+            data-testid="filter-by-drink-btn"
+            onClick={ () => FilterRecipes('drinks') }
+          >
+            Drinks
+          </button>
+        </div>
+      </section>
+      <section className="recipe-containe">
         <ul>
           {
             doneRecipes.map((recipe, index) => (
-              <li key={ recipe.id }>
+              <li key={ recipe.id } className="card-containe">
                 <Link to={ `${recipe.type}s/${recipe.id}` }>
                   <img
                     data-testid={ `${index}-horizontal-image` }
                     src={ recipe.image }
                     alt={ recipe.name }
                   />
-                  <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
-                </Link>
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  {
-                    recipe.alcoholicOrNot ? recipe.alcoholicOrNot
-                      : `${recipe.nationality} - ${recipe.category}`
-                  }
-                </p>
-                <span
-                  data-testid={ `${index}-horizontal-done-date` }
-                >
-                  {recipe.doneDate}
+                  <div className="card-nome">
+                    <div className="card-contente">
+                      <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
 
-                </span>
-                {
-                  buttonClipeBoard(
-                    recipe.type,
-                    recipe.id,
-                    index,
+                      <p
+                        data-testid={ `${index}-horizontal-top-text` }
+                      >
+                        {
+                          recipe.alcoholicOrNot ? recipe.alcoholicOrNot
+                            : `${recipe.nationality} - ${recipe.category}`
+                        }
+                      </p>
+                      <span
+                        data-testid={ `${index}-horizontal-done-date` }
+                      >
+                        {recipe.doneDate}
+
+                      </span>
+                    </div>
+                    <div className="card-contente">
+                      {
+                        buttonClipeBoard(
+                          recipe.type,
+                          recipe.id,
+                          index,
+                          {
+                            state: {
+                              setShared,
+                              shared,
+                            },
+                          },
+                        )
+                      }
+                    </div>
                     {
-                      state: {
-                        setShared,
-                        shared,
-                      },
-                    },
-                  )
-                }
-                {
-                  recipe.tags.map((tag) => (
-                    <p
-                      key={ tag }
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
-                    >
-                      {tag}
+                      recipe.tags.map((tag) => (
+                        <p
+                          key={ tag }
+                          data-testid={ `${index}-${tag}-horizontal-tag` }
+                        >
+                          {tag}
 
-                    </p>
-                  ))
-                }
+                        </p>
+                      ))
+                    }
+                  </div>
+                </Link>
               </li>
             ))
           }
         </ul>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
