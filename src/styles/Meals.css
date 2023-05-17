@@ -3,6 +3,11 @@ ul {
   padding: 0;
 }
 
+img {
+    max-width: 400px;
+    border-radius: 5px;
+}
+
 .categoriesButton {
   display: flex;
   flex-wrap: wrap;

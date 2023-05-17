@@ -37,15 +37,15 @@ function RecipeDetails() {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-        }
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-        }
+        },
       },
-    ]
+    ],
   };
 
   for (let index = 1; index <= limitIngredients; index += 1) {
@@ -151,33 +151,47 @@ function RecipeDetails() {
         </div>
       </div>
       <div className="details-description">
-        <div className='sub-details'>
-        <div className='ingredients-and-image'>
+        <div className="sub-details">
+          <div className="ingredients-and-image">
 
-        <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
-        {
-          alcoholic && <p data-testid="recipe-category">{recipeDetails.strAlcoholic}</p>
-        }
-        <h3>Ingredients</h3>
-        <ul>
-          {
-            ingredients.map((ingredient, index) => (
-              <li
-                className="details-list"
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ ingredient.ingredient }
+            <p
+              data-testid="recipe-category"
+            >
+              {recipeDetails.strCategory}
+
+            </p>
+            {
+              alcoholic
+              && <p
+                data-testid="recipe-category"
               >
-                <span>
-                  <ImCart color="#00BF63" />
+                {recipeDetails.strAlcoholic}
+
+                 </p>
+            }
+            <h3>Ingredients</h3>
+            <ul>
+              {
+                ingredients.map((ingredient, index) => (
+                  <li
+                    className="details-list"
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                    key={ ingredient.ingredient }
+                  >
+                    <span>
+                      <ImCart color="#00BF63" />
 &nbsp;&nbsp;
-                  {`${ingredient.ingredient} - ${ingredient.measure}`}
-                </span>
-              </li>
-            ))
-          }
-        </ul>
+                      {`${ingredient.ingredient} - ${ingredient.measure}`}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
           </div>
-        <img src={recipeDetails[`str${name}Thumb`]} alt={recipeDetails[`str${name}Thumb`]} />
+          <img
+            src={ recipeDetails[`str${name}Thumb`] }
+            alt={ recipeDetails[`str${name}Thumb`] }
+          />
         </div>
         <h3>How to make</h3>
         <p data-testid="instructions">{recipeDetails.strInstructions}</p>

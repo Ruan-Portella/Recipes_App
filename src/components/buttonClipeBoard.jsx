@@ -1,6 +1,7 @@
 import React from 'react';
 import copy from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
+import { ImShare2 } from 'react-icons/im';
+// import shareIcon from '../images/shareIcon.svg';
 
 const buttonClipeBoard = (type, id, recipeIndex, { state }) => (
   <div>
@@ -10,11 +11,7 @@ const buttonClipeBoard = (type, id, recipeIndex, { state }) => (
         state.setShared(true);
       } }
     >
-      <img
-        data-testid={ `${recipeIndex}-horizontal-share-btn` }
-        src={ shareIcon }
-        alt="favorite"
-      />
+      <ImShare2 size={ 30 } color="#00BF63" />
     </button>
     {
       state.shared && (
