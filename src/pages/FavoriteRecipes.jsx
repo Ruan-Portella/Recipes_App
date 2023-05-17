@@ -102,50 +102,55 @@ function FavoriteRecipes() {
                     src={ recipe.image }
                     alt={ recipe.name }
                   />
-                  <div className="card-nome">
-                    <div className="card-contente">
-
-                      <p
-                        data-testid={ `${index}-horizontal-name` }
-                      >
-                        {recipe.name}
-
-                      </p>
-                      <p
-                        data-testid={ `${index}-horizontal-top-text` }
-                      >
-                        {
-                          recipe.alcoholicOrNot ? recipe.alcoholicOrNot
-                            : `${recipe.nationality} - ${recipe.category}`
-                        }
-                      </p>
-                    </div>
-                    <div className="card-contente">
-                      {
-                        buttonClipeBoard(
-                          recipe.type,
-                          recipe.id,
-                          index,
-                          {
-                            state: {
-                              setShared,
-                              shared,
-                            },
-                          },
-                        )
-                      }
-                      <button
-                        onClick={ () => (favorite && unfavoriteRecipe(recipe.id)) }
-                      >
-                        {favorite && (
-                          <ImHeart
-                            size={ 30 }
-                            color="#00BF63"
-                          />)}
-                      </button>
-                    </div>
-                  </div>
                 </Link>
+                <div className="card-nome">
+                  <div className="card-contente">
+
+                    <p
+                      data-testid={ `${index}-horizontal-name` }
+                    >
+                      {recipe.name}
+
+                    </p>
+                    <span
+                      data-testid={ `${index}-horizontal-top-text` }
+                    >
+                      {
+                        recipe.alcoholicOrNot ? recipe.alcoholicOrNot
+                          : `${recipe.nationality}`
+                      }
+                    </span>
+                    <span>
+                      {
+                        recipe.alcoholicOrNot ? recipe.alcoholicOrNot : recipe.category
+                      }
+                    </span>
+                  </div>
+                  <div className="card-contente-button">
+                    {
+                      buttonClipeBoard(
+                        recipe.type,
+                        recipe.id,
+                        index,
+                        {
+                          state: {
+                            setShared,
+                            shared,
+                          },
+                        },
+                      )
+                    }
+                    <button
+                      onClick={ () => (favorite && unfavoriteRecipe(recipe.id)) }
+                    >
+                      {favorite && (
+                        <ImHeart
+                          size={ 30 }
+                          color="#00BF63"
+                        />)}
+                    </button>
+                  </div>
+                </div>
               </li>
             ))
           }

@@ -3,10 +3,10 @@ ul {
   padding: 0;
 }
 
-img {
-    max-width: 400px;
-    border-radius: 5px;
-}
+/* img {
+  border-radius: 5px;
+  max-width: 400px;
+} */
 
 .categoriesButton {
   display: flex;

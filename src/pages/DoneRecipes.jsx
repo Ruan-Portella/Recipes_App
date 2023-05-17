@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { BsCheck } from 'react-icons/bs';
 import buttonClipeBoard from '../components/buttonClipeBoard';
 import Header from '../components/Header';
 import '../styles/FavoriteRecipes.css';
+import all from '../images/all.svg';
+import category0 from '../images/beef.svg';
+import drink0 from '../images/ordinary.svg';
+import Footer from '../components/Footer';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -91,20 +96,29 @@ function DoneRecipes() {
             data-testid="filter-by-all-btn"
             onClick={ () => FilterRecipes('all') }
           >
-            All
+            <img src={ all } alt="Button All" />
           </button>
+          <span>All</span>
+        </div>
+        <div className="content-categories">
           <button
             data-testid="filter-by-meal-btn"
             onClick={ () => FilterRecipes('meals') }
           >
-            Meals
+            <img src={ category0 } alt="Button All" />
           </button>
+          <span>Meals</span>
+        </div>
+        <div className="content-categories">
           <button
             data-testid="filter-by-drink-btn"
             onClick={ () => FilterRecipes('drinks') }
           >
-            Drinks
+            <img src={ drink0 } alt="Button All" />
           </button>
+          <span>
+            Drinks
+          </span>
         </div>
       </section>
       <section className="recipe-containe">
@@ -121,15 +135,6 @@ function DoneRecipes() {
                   <div className="card-nome">
                     <div className="card-contente">
                       <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
-
-                      <p
-                        data-testid={ `${index}-horizontal-top-text` }
-                      >
-                        {
-                          recipe.alcoholicOrNot ? recipe.alcoholicOrNot
-                            : `${recipe.nationality} - ${recipe.category}`
-                        }
-                      </p>
                       <span
                         data-testid={ `${index}-horizontal-done-date` }
                       >
@@ -137,7 +142,7 @@ function DoneRecipes() {
 
                       </span>
                     </div>
-                    <div className="card-contente">
+                    <div className="card-contente-button">
                       {
                         buttonClipeBoard(
                           recipe.type,
@@ -151,18 +156,13 @@ function DoneRecipes() {
                           },
                         )
                       }
+                      <button>
+                        <BsCheck
+                          size={ 50 }
+                          color="#00BF63"
+                        />
+                      </button>
                     </div>
-                    {
-                      recipe.tags.map((tag) => (
-                        <p
-                          key={ tag }
-                          data-testid={ `${index}-${tag}-horizontal-tag` }
-                        >
-                          {tag}
-
-                        </p>
-                      ))
-                    }
                   </div>
                 </Link>
               </li>
@@ -170,6 +170,7 @@ function DoneRecipes() {
           }
         </ul>
       </section>
+      <Footer />
     </>
   );
 }

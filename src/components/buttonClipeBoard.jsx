@@ -5,7 +5,7 @@ import '../styles/FavoriteRecipes.css';
 // import shareIcon from '../images/shareIcon.svg';
 
 const buttonClipeBoard = (type, id, recipeIndex, { state }) => (
-  <div className="card-contente">
+  <div className="card-contente-button">
     <button
       onClick={ () => {
         copy(`http://localhost:3000/${type}s/${id}`);

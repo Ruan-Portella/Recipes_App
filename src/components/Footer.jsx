@@ -26,7 +26,7 @@ function Footer() {
       setDone(false);
       setDrinks(false);
       break;
-    case '/favorites':
+    case '/favorite-recipes':
       setFavorite(true);
       setDone(false);
       setMeals(false);
@@ -54,7 +54,7 @@ function Footer() {
         <BiDrink size={ 30 } color={ drinks ? 'black' : 'white' } />
       </Link>
       <Link to="/favorite-recipes">
-        <ImHeart size={ 30 } color="white" />
+        <ImHeart size={ 30 } color={ favorite ? 'black' : 'white' } />
       </Link>
       <Link to="/done-recipes">
         <ImCheckmark size={ 30 } color={ done ? 'black' : 'white' } />
