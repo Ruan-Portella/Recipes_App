@@ -9,80 +9,33 @@ import all from '../images/all.svg';
 import category0 from '../images/beef.svg';
 import drink0 from '../images/ordinary.svg';
 import Footer from '../components/Footer';
+import { getRecipesFinished } from '../helpers/localStorage';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [shared, setShared] = useState(false);
-  const date = '23/06/2020';
 
   useEffect(() => {
-    const MockLocalStorage = [
-      {
-        id: '52771',
-        type: 'meal',
-        nationality: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-        doneDate: date,
-        tags: ['Pasta', 'Curry'],
-      },
-      {
-        id: '178319',
-        type: 'drink',
-        nationality: '',
-        category: 'Cocktail',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-        doneDate: date,
-        tags: [],
-      },
-    ];
-
-    setDoneRecipes(MockLocalStorage);
+    const doneRecipesStorage = getRecipesFinished();
+    setFilteredRecipes(doneRecipesStorage);
+    setDoneRecipes(doneRecipesStorage);
   }, []);
 
   const FilterRecipes = (type) => {
-    const MockLocalStorage = [
-      {
-        id: '52771',
-        type: 'meal',
-        nationality: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-        doneDate: date,
-        tags: ['Pasta', 'Curry'],
-      },
-      {
-        id: '178319',
-        type: 'drink',
-        nationality: '',
-        category: 'Cocktail',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-        doneDate: date,
-        tags: [],
-      },
-    ];
-
     switch (type) {
     case 'meals': {
-      const Filtered = MockLocalStorage.filter((recipe) => recipe.type === 'meal');
+      const Filtered = filteredRecipes.filter((recipe) => recipe.type === 'meal');
       setDoneRecipes(Filtered);
       break;
     }
     case 'drinks': {
-      const Filtered = MockLocalStorage.filter((recipe) => recipe.type === 'drink');
+      const Filtered = filteredRecipes.filter((recipe) => recipe.type === 'drink');
       setDoneRecipes(Filtered);
     }
       break;
     default: {
-      setDoneRecipes(MockLocalStorage);
+      setDoneRecipes(filteredRecipes);
       break;
     }
     }

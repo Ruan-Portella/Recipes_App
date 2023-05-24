@@ -12,7 +12,6 @@ function Footer() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    console.log(pathname);
     switch (pathname) {
     case '/drinks':
       setDrinks(true);
