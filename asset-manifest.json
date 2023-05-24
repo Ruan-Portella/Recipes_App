@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/Recipes_App/static/css/main.259ea932.css",
+    "main.js": "/Recipes_App/static/js/main.9873ef21.js",
+    "static/media/iRecipes.svg": "/Recipes_App/static/media/iRecipes.31eccd96675ff2b3cceb60ed44f53a5c.svg",
+    "static/media/beef.svg": "/Recipes_App/static/media/beef.d502fc3bfb747d8e9fbda7550fd7748b.svg",
+    "static/media/undraw_cooking_p7m1.svg": "/Recipes_App/static/media/undraw_cooking_p7m1.2aa73225375e698b11856ab56ededd32.svg",
+    "static/media/all.svg": "/Recipes_App/static/media/all.d8871b23770f982b70752f75601df95c.svg",
+    "static/media/goat.svg": "/Recipes_App/static/media/goat.1fcef98782db104f8ada4f98c6fb8fb0.svg",
+    "static/media/cocoa.svg": "/Recipes_App/static/media/cocoa.68187325d3114f6b0d24d31a885584b9.svg",
+    "static/media/chicken.svg": "/Recipes_App/static/media/chicken.4b71e0b6b7ebaaa2c171f5aa4cca41ee.svg",
+    "static/media/slick.svg": "/Recipes_App/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/breakfast.svg": "/Recipes_App/static/media/breakfast.e71b1bb9600e8a9c901b2087032f810b.svg",
+    "static/media/slick.eot": "/Recipes_App/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/dessert.svg": "/Recipes_App/static/media/dessert.caeeb59a53820890b6089502ed48a8e2.svg",
+    "static/media/slick.ttf": "/Recipes_App/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/beer.svg": "/Recipes_App/static/media/beer.bdec659a471f2c164359a1e77ab8b36b.svg",
+    "static/media/cocktail.svg": "/Recipes_App/static/media/cocktail.9d070a0be9b469bbd34036240cf2b633.svg",
+    "static/media/slick.woff": "/Recipes_App/static/media/slick.295183786cd8a1389865.woff",
+    "static/media/ordinary.svg": "/Recipes_App/static/media/ordinary.7da1eeabfa7ab4d903f0fd7cb028c48e.svg",
+    "static/media/shake.svg": "/Recipes_App/static/media/shake.8eea90b9dee5ca3b60b52b41edd10fbb.svg",
+    "index.html": "/Recipes_App/index.html",
+    "static/media/Wave.svg": "/Recipes_App/static/media/Wave.02cfa00dd917bf7ca2b9.svg",
+    "main.259ea932.css.map": "/Recipes_App/static/css/main.259ea932.css.map",
+    "main.9873ef21.js.map": "/Recipes_App/static/js/main.9873ef21.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.259ea932.css",
+    "static/js/main.9873ef21.js"
+  ]
+}
